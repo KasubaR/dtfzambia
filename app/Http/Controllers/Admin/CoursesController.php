@@ -38,7 +38,7 @@ class CoursesController extends Controller
             'price'       => 'required|numeric|min:0',
         ]);
 
-        Course::create($data);
+        Course::create(array_merge($data, ['is_active' => true]));
 
         return redirect()
             ->route('admin.courses.index')
