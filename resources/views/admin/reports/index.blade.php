@@ -58,6 +58,33 @@
   </div>
 </div>
 
+{{-- ── Print by Course ─────────────────────────────────────── --}}
+<div class="panel animate-in delay-1" style="margin-bottom:22px">
+  <div class="panel-header">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         style="width:17px;height:17px;color:var(--accent)">
+      <polyline points="6 9 6 2 18 2 18 9"/>
+      <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+      <rect x="6" y="14" width="12" height="8"/>
+    </svg>
+    <span class="panel-title">Print Students by Course</span>
+  </div>
+  <div style="padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px">
+    @foreach($courses as $course)
+      <a href="{{ route('admin.reports.export', ['course_id' => $course->id]) }}"
+         target="_blank"
+         class="btn btn-outline btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
+          <polyline points="6 9 6 2 18 2 18 9"/>
+          <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        {{ $course->title }}
+      </a>
+    @endforeach
+  </div>
+</div>
+
 {{-- ── Main Panel ──────────────────────────────────────────── --}}
 <div class="panel animate-in delay-2">
 

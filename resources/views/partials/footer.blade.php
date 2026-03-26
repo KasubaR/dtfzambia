@@ -14,29 +14,6 @@
                 <p class="text-sm leading-relaxed mb-6" style="color: var(--color-text-muted);">
                     Empowering the next generation of digital entrepreneurs through specialised training and global networking.
                 </p>
-                <div class="flex gap-3">
-                    <a href="#" aria-label="LinkedIn"
-                       class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
-                       style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
-                       onmouseover="this.style.backgroundColor='var(--color-primary)';this.style.color='white';"
-                       onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';">
-                        <span class="material-symbols-outlined text-lg">business_center</span>
-                    </a>
-                    <a href="#" aria-label="Twitter / X"
-                       class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
-                       style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
-                       onmouseover="this.style.backgroundColor='var(--color-primary)';this.style.color='white';"
-                       onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';">
-                        <span class="material-symbols-outlined text-lg">share</span>
-                    </a>
-                    <a href="#" aria-label="Facebook"
-                       class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
-                       style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
-                       onmouseover="this.style.backgroundColor='var(--color-primary)';this.style.color='white';"
-                       onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';">
-                        <span class="material-symbols-outlined text-lg">group</span>
-                    </a>
-                </div>
             </div>
 
             {{-- Quick links --}}
@@ -45,14 +22,12 @@
                     style="color: var(--color-primary);">Quick Links</h5>
                 <ul class="space-y-3">
                     @foreach ([
-                        ['Admissions',       '#courses'],
-                        ['Curriculum',       '#courses'],
-                        ['Scholarships',     '#pricing'],
+                        ['Apply Now',        route('enrollment.create')],
                         ['Partner with Us',  '#contact'],
                         ['About Us',         '#about'],
                     ] as [$label, $anchor])
                     <li>
-                        <a href="{{ url('/') }}{{ $anchor }}"
+                        <a href="{{ str_starts_with($anchor, 'http') ? $anchor : url('/') . $anchor }}"
                            class="text-sm transition-colors duration-200"
                            style="color: var(--color-text-muted);"
                            onmouseover="this.style.color='var(--color-primary)';"
@@ -68,19 +43,36 @@
             <div>
                 <h5 class="text-[0.7rem] font-bold uppercase tracking-widest mb-5"
                     style="color: var(--color-primary);">Follow Us</h5>
-                <ul class="space-y-3">
-                    @foreach (['LinkedIn', 'Twitter (X)', 'Facebook', 'Instagram', 'YouTube'] as $platform)
-                    <li>
-                        <a href="#"
-                           class="text-sm transition-colors duration-200"
-                           style="color: var(--color-text-muted);"
-                           onmouseover="this.style.color='var(--color-green)';"
-                           onmouseout="this.style.color='var(--color-text-muted)';">
-                            {{ $platform }}
-                        </a>
-                    </li>
-                    @endforeach
-                </ul>
+                <div class="flex flex-wrap gap-3">
+
+                    {{-- Twitter / X --}}
+                    <a href="#" aria-label="Twitter / X"
+                       class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+                       style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
+                       onmouseover="this.style.backgroundColor='#000';this.style.color='white';this.style.borderColor='#000';"
+                       onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';this.style.borderColor='var(--color-border)';">
+                        <i class="fa-brands fa-x-twitter" style="font-size:15px"></i>
+                    </a>
+
+                    {{-- Facebook --}}
+                    <a href="#" aria-label="Facebook"
+                       class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+                       style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
+                       onmouseover="this.style.backgroundColor='#1877f2';this.style.color='white';this.style.borderColor='#1877f2';"
+                       onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';this.style.borderColor='var(--color-border)';">
+                        <i class="fa-brands fa-facebook-f" style="font-size:15px"></i>
+                    </a>
+
+                    {{-- Instagram --}}
+                    <a href="#" aria-label="Instagram"
+                       class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+                       style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
+                       onmouseover="this.style.backgroundColor='#e1306c';this.style.color='white';this.style.borderColor='#e1306c';"
+                       onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';this.style.borderColor='var(--color-border)';">
+                        <i class="fa-brands fa-instagram" style="font-size:15px"></i>
+                    </a>
+
+                </div>
             </div>
 
             {{-- Contact --}}
@@ -139,18 +131,6 @@
                     {{ $link }}
                 </a>
                 @endforeach
-                @auth
-                    @if(auth()->user()->is_admin)
-                    <a href="{{ route('admin.dashboard') }}"
-                       class="text-xs font-medium flex items-center gap-1 px-3 py-1 rounded-full transition-all duration-200"
-                       style="color: var(--color-primary); border: 1px solid var(--color-primary);"
-                       onmouseover="this.style.backgroundColor='var(--color-primary)';this.style.color='white';"
-                       onmouseout="this.style.backgroundColor='transparent';this.style.color='var(--color-primary)';">
-                        <span class="material-symbols-outlined" style="font-size: 13px;">admin_panel_settings</span>
-                        Admin Panel
-                    </a>
-                    @endif
-                @endauth
             </div>
         </div>
     </div>

@@ -11,8 +11,9 @@ class DashboardController extends Controller
     public function index()
     {
         /* ── Stats ───────────────────────────────────────────── */
-        $totalEnrollments  = Enrollment::count();
-        $enrollmentsToday  = Enrollment::whereDate('created_at', today())->count();
+        $totalEnrollments  = Enrollment::where('status', 'approved')->count();
+        $enrollmentsToday  = Enrollment::where('status', 'approved')->whereDate('created_at', today())->count();
+        $totalApplications = Enrollment::count();
         /* Pending = at least one selected course still awaiting a pivot decision */
         $pending = Enrollment::whereHas(
             'courses',
@@ -26,6 +27,7 @@ class DashboardController extends Controller
         $stats = [
             'total_enrollments'  => $totalEnrollments,
             'enrollments_today'  => $enrollmentsToday,
+            'total_applications' => $totalApplications,
             'pending'            => $pending,
             'approved'           => $approved,
             'rejected'           => $rejected,

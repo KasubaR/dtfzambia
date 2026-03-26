@@ -56,6 +56,7 @@ Route::prefix('admin')
         Route::get('enrollments', [EnrollmentsController::class, 'index'])->name('enrollments.index');
         Route::post('enrollments/bulk-export',    [EnrollmentsController::class, 'bulkExport'])->name('enrollments.bulk-export');
         Route::delete('enrollments/bulk-destroy', [EnrollmentsController::class, 'bulkDestroy'])->name('enrollments.bulk-destroy');
+        Route::delete('enrollments/{enrollment}', [EnrollmentsController::class, 'destroy'])->name('enrollments.destroy');
 
         Route::get('courses',                 [CoursesController::class, 'index'])  ->name('courses.index');
         Route::get('courses/create',          [CoursesController::class, 'create']) ->name('courses.create');

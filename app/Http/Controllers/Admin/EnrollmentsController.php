@@ -64,6 +64,17 @@ class EnrollmentsController extends Controller
         }, $filename, ['Content-Type' => 'text/csv']);
     }
 
+    public function destroy(Enrollment $enrollment)
+    {
+        DB::transaction(function () use ($enrollment): void {
+            DB::table('course_enrollment')->where('enrollment_id', $enrollment->id)->delete();
+            $enrollment->delete();
+        });
+
+        return redirect()->route('admin.enrollments.index')
+            ->with('success', 'Enrollment for ' . $enrollment->full_name . ' has been deleted.');
+    }
+
     public function bulkDestroy(Request $request)
     {
         $validated = $request->validate([
@@ -73,21 +84,12 @@ class EnrollmentsController extends Controller
 
         $ids = $validated['ids'];
 
-        $nonRejected = Enrollment::whereIn('id', $ids)
-            ->where('status', '!=', 'rejected')
-            ->count();
-
-        if ($nonRejected > 0) {
-            return redirect()->route('admin.enrollments.index', ['tab' => 'rejected'])
-                ->with('error', 'Only rejected enrollments can be deleted.');
-        }
-
         DB::transaction(function () use ($ids): void {
             DB::table('course_enrollment')->whereIn('enrollment_id', $ids)->delete();
             Enrollment::whereIn('id', $ids)->delete();
         });
 
-        return redirect()->route('admin.enrollments.index', ['tab' => 'rejected'])
+        return redirect()->route('admin.enrollments.index')
             ->with('success', count($ids) . ' enrollment(s) permanently deleted.');
     }
 }

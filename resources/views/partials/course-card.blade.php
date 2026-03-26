@@ -8,9 +8,22 @@
      data-duration="{{ $course->duration !== null ? strtolower(str_replace(' ', '-', $course->duration)) : '' }}">
 
     {{-- ── Image ──────────────────────────────────────────── --}}
+    @php
+        $titleLower = strtolower($course->title ?? '');
+        $fallbackImage = match(true) {
+            str_contains($titleLower, 'ai') || str_contains($titleLower, 'artificial') => 'AI.jpg.jpeg',
+            str_contains($titleLower, 'entrepreneur')                                   => 'Entrepreneurship.jpg.jpeg',
+            str_contains($titleLower, 'graphic') || str_contains($titleLower, 'design') => 'Graphic Design.jpg.jpeg',
+            str_contains($titleLower, 'marketing')                                      => 'digital marketing.jpg.jpeg',
+            str_contains($titleLower, 'web')                                            => 'web-design-website-coding-concept.jpg.jpeg',
+            default                                                                     => null,
+        };
+    @endphp
     <div class="cc-image">
         @if (!empty($course->image))
             <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" />
+        @elseif ($fallbackImage)
+            <img src="{{ asset('images/courses/' . $fallbackImage) }}" alt="{{ $course->title }}" />
         @else
             <div class="cc-image-placeholder">
                 <span class="material-symbols-outlined">{{ $course->icon ?? 'menu_book' }}</span>
@@ -31,20 +44,6 @@
             <span>{{ $course->duration ?? '10 Days' }} &bull; {{ $course->mode ?? 'Hybrid' }}</span>
         </div>
 
-        {{-- Optional badges --}}
-        @if (($course->is_popular ?? false) || ($course->is_recommended ?? false) || ($course->is_new ?? false))
-        <div class="cc-badges">
-            @if ($course->is_popular ?? false)
-                <span class="badge badge-green">⭐ Popular</span>
-            @endif
-            @if ($course->is_recommended ?? false)
-                <span class="badge badge-blue">Recommended</span>
-            @endif
-            @if ($course->is_new ?? false)
-                <span class="badge" style="background:#fef9e7; color:#92400e;">New</span>
-            @endif
-        </div>
-        @endif
 
         <h3 class="cc-title">{{ $course->title }}</h3>
         <p class="cc-desc">{{ $course->description }}</p>

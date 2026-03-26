@@ -322,11 +322,6 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div class="max-w-2xl">
 
-            <div class="hero-badge">
-                <span class="material-symbols-outlined" style="font-size:.9rem;">school</span>
-                {{ $courses->count() }} Programs Available
-            </div>
-
             <h1 class="text-4xl lg:text-5xl font-extrabold text-white mb-4"
                 style="font-family: var(--font-headline); letter-spacing: -0.03em; line-height:1.1;">
                 Build Skills That<br>
@@ -358,7 +353,6 @@
 
         {{-- Section header + filters --}}
         <div class="text-center mb-16">
-            <p class="section-eyebrow">Our Programs</p>
             <h2 class="section-title text-3xl lg:text-4xl mb-8">Choose Your Path</h2>
 
             {{-- Filter bar --}}

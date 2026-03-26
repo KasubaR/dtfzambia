@@ -5,6 +5,13 @@
 
 @section('content')
 
+@if(session('success'))
+  <div class="alert-chip success" style="margin-bottom:12px">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+  <div class="alert-chip warn" style="margin-bottom:12px">{{ session('error') }}</div>
+@endif
+
 <div class="panel animate-in">
   <div class="panel-header">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -33,15 +40,12 @@
       <button type="submit" class="btn btn-sm btn-outline">Export CSV</button>
     </form>
 
-    @if($tab === 'rejected')
     <form method="POST" action="{{ route('admin.enrollments.bulk-destroy') }}" id="formEnrollDestroy" class="bulk-form">
       @csrf
       @method('DELETE')
-      <input type="hidden" name="tab" value="{{ $tab }}">
       <div id="enrollDestroyIds"></div>
       <button type="submit" class="btn btn-sm btn-danger">Delete Selected</button>
     </form>
-    @endif
   </div>
 
   <div class="table-wrap">
@@ -86,13 +90,36 @@
               {{ $enrollment->created_at->format('d M Y') }}
             </td>
             <td>
-              <a href="{{ route('admin.applications.show', $enrollment) }}" class="btn btn-sm btn-outline">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-                View
-              </a>
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline dropdown-toggle" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px">
+                    <circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu" style="right:0;left:auto;min-width:140px">
+                  <a href="{{ route('admin.applications.show', $enrollment) }}" class="dropdown-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    View
+                  </a>
+                  <div class="dropdown-sep"></div>
+                  <form method="POST" action="{{ route('admin.enrollments.destroy', $enrollment) }}"
+                        onsubmit="return confirm('Delete enrollment for {{ addslashes($enrollment->full_name) }}? This cannot be undone.')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="dropdown-item danger" style="width:100%;background:none;border:none;cursor:pointer;text-align:left">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                        <path d="M10 11v6M14 11v6"/>
+                      </svg>
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
             </td>
           </tr>
         @empty
@@ -171,6 +198,20 @@
       if (confirm('Permanently delete ' + selected.size + ' enrollment(s)? This cannot be undone.')) this.submit();
     });
   }
+
+  // Dropdown toggles
+  document.querySelectorAll('.dropdown-toggle').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const dropdown = this.closest('.dropdown');
+      const isOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+      if (!isOpen) dropdown.classList.add('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+  });
 })();
 </script>
 @endpush

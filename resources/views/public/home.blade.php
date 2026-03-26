@@ -48,8 +48,6 @@
 
             {{-- Copy --}}
             <div class="lg:col-span-8">
-                <span class="badge badge-green mb-6 animate-fade-up">Empowering Zambia</span>
-
                 <h1 class="text-[clamp(2.4rem,5vw,3.5rem)] font-extrabold font-headline leading-[1.1] mb-8 animate-fade-up delay-100 text-white">
                     Build Digital Skills<br>
                     <span style="color: var(--color-green);">for the Future</span>
@@ -82,21 +80,16 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
-            <div class="relative" data-animate>
-                <div class="aspect-video rounded-xl overflow-hidden" style="box-shadow: var(--shadow-lg);">
-                    <img class="w-full h-full object-cover"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhWn0qYhbdB-6ElCukY9A_Rx3j8WyrQKOsaT6e2OIxTik55bIKVYTlMHwf-etoM_HPAAAQWRBlqU8UrUokOZ2Ivlss_CjTrxqJyopezvq6CtHnDnJb4kfp9_z53fZjUadMrcwUbKcpPnnnlrrPr3AZSXFgWxM_D18ys4DdVEbbv3iF2FSmuoBc_PVINEPjXowd5LbIgaiW8U_U7XEzwZvP5zocHsXNb9hAeWJI1eKsCqxp2CW3X8ao9Nl_PsGW5FUK3yeDFSkcOY8"
-                         alt="Professionals collaborating in a digital workspace" />
+            <div class="relative flex items-center justify-center" data-animate>
+                <div class="rounded-xl overflow-hidden flex items-center justify-center p-12"
+                     style="box-shadow: var(--shadow-lg); background: var(--color-surface-low); width:100%">
+                    <img src="{{ asset('images/DFL-Logo-Files-02.svg') }}"
+                         alt="Digital Future Labs"
+                         class="w-full max-w-xs h-auto" />
                 </div>
-                {{-- Floating accent --}}
-                <div class="absolute -bottom-5 -right-5 w-28 h-28 rounded-xl -z-10"
-                     style="background-color: var(--color-green); opacity: .18;"></div>
-                <div class="absolute -top-5 -left-5 w-20 h-20 rounded-full -z-10"
-                     style="background-color: var(--color-primary-light);"></div>
             </div>
 
             <div data-animate>
-                <p class="section-eyebrow">Our Mission</p>
                 <h2 class="section-title text-3xl lg:text-4xl font-extrabold mb-6">The Visionary Ledger</h2>
                 <p class="text-lg leading-relaxed mb-8" style="color: var(--color-text-muted);">
                     We are more than a lab — we are a prestigious gateway to innovation. Digital Future Labs bridges the technical divide, offering hands-on mentorship and world-class digital resources to the next generation of Zambian leaders.
@@ -121,7 +114,6 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
         <div class="text-center mb-16" data-animate>
-            <p class="section-eyebrow">What We Teach</p>
             <h2 class="section-title text-4xl font-extrabold mb-4">Our Curriculum</h2>
             <p class="max-w-xl mx-auto" style="color: var(--color-text-muted);">
                 Master the tools of the modern economy with our intensive 10-day hybrid cohorts.
@@ -241,7 +233,6 @@
 
             {{-- Why --}}
             <div class="lg:col-span-7" data-animate>
-                <p class="section-eyebrow">Why Us</p>
                 <h2 class="section-title text-3xl font-extrabold mb-10">Why Future Labs?</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                     @foreach ([
@@ -299,7 +290,6 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
         <div class="text-center mb-16" data-animate>
-            <p class="section-eyebrow">The Process</p>
             <h2 class="section-title text-3xl font-extrabold">The Journey to Success</h2>
         </div>
 
@@ -411,9 +401,16 @@
 
                 <div class="w-full h-64 rounded-xl overflow-hidden"
                      style="box-shadow: var(--shadow-md);">
-                    <img class="w-full h-full object-cover"
-                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvzmmh70TyFmWGxI2U5ZGtCj9iJHjygtvLDek4Bz8u44Fr099h6CCVpNjgozfVeVKyxM7oo-xyUkTQfS6IkrTvDgrI7oqelwUoIj4ASr2TQztaP6pQZYgMpEJ64BdhkiNG50RaEF75OlmWSzkQ8S-ZTBaPwc3ppTXNMBk6OBFEFabs_iLGdFWH24ZZQcNClcCb97y7SYqrUVFX_foZ2J3JifkevjxAS-eNQVavLZLRIEEiMnUZ0UaqVDCTJiJ9eF3o2ryeYTp2wZE"
-                         alt="Map of Lusaka showing Innovation Hub location" />
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.Longacres!2d28.3228!3d-15.4167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19408b3c8e3a1c4f%3A0x5a6e2a3d8f2e1b0a!2sLongacres%2C%20Lusaka%2C%20Zambia!5e0!3m2!1sen!2szm!4v1700000000000"
+                        width="100%"
+                        height="100%"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Digital Future Labs location">
+                    </iframe>
                 </div>
             </div>
 
@@ -475,6 +472,11 @@
                                   onfocus="this.style.borderColor='var(--color-primary)'; this.style.boxShadow='0 0 0 3px rgba(16,76,157,.1)';"
                                   onblur="this.style.borderColor='var(--color-border)'; this.style.boxShadow='none';"></textarea>
                     </div>
+
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                    @error('g-recaptcha-response')
+                        <p class="text-xs mt-1" style="color:var(--color-danger)">{{ $message }}</p>
+                    @enderror
 
                     <button type="submit"
                             class="btn-primary w-full justify-center py-4 text-xs">

@@ -156,7 +156,16 @@
   {{-- Header --}}
   <div class="report-header">
     <div>
-      <div class="report-title">Enrollment Report</div>
+      <div class="report-title">
+        @if($courseLabel)
+          {{ $courseLabel }}
+        @else
+          Enrollment Report
+        @endif
+      </div>
+      @if($courseLabel)
+        <div style="font-size:12px;color:#555;margin-top:2px">Accepted Students Report</div>
+      @endif
       <div class="report-meta">
         Generated {{ now()->format('d M Y, H:i') }}
         · {{ $records->count() }} record{{ $records->count() !== 1 ? 's' : '' }}
@@ -168,64 +177,21 @@
     </div>
   </div>
 
-  {{-- Active filters summary --}}
-  @if(collect($filters)->filter()->isNotEmpty())
-    <div class="filter-summary">
-      <span>Filters applied:</span>
-      @if($courseLabel)
-        <span><strong>Course:</strong> {{ $courseLabel }}</span>
-      @endif
-      @if(!empty($filters['status']))
-        <span><strong>Status:</strong> {{ ucfirst($filters['status']) }}</span>
-      @endif
-      @if(!empty($filters['date_from']))
-        <span><strong>From:</strong> {{ \Carbon\Carbon::parse($filters['date_from'])->format('d M Y') }}</span>
-      @endif
-      @if(!empty($filters['date_to']))
-        <span><strong>To:</strong> {{ \Carbon\Carbon::parse($filters['date_to'])->format('d M Y') }}</span>
-      @endif
-      @if(!empty($filters['search']))
-        <span><strong>Search:</strong> "{{ $filters['search'] }}"</span>
-      @endif
-    </div>
-  @endif
 
-  {{-- Summary counts --}}
-  @php
-    $pending  = $records->where('status', 'pending')->count();
-    $approved = $records->whereIn('status', ['approved', 'partial'])->count();
-    $rejected = $records->where('status', 'rejected')->count();
-  @endphp
-  <div class="summary-row">
-    <div class="summary-cell">
-      <div class="num">{{ $records->count() }}</div>
-      <div class="lbl">Total</div>
-    </div>
-    <div class="summary-cell">
-      <div class="num">{{ $pending }}</div>
-      <div class="lbl">Pending</div>
-    </div>
-    <div class="summary-cell">
-      <div class="num">{{ $approved }}</div>
-      <div class="lbl">Accepted</div>
-    </div>
-    <div class="summary-cell">
-      <div class="num">{{ $rejected }}</div>
-      <div class="lbl">Rejected</div>
-    </div>
-  </div>
 
   {{-- Table --}}
   <table>
     <thead>
       <tr>
-        <th>#</th>
+        <th>No</th>
         <th>Student</th>
         <th>Phone</th>
-        <th>Location</th>
-        <th>Course(s)</th>
-        <th>Status</th>
-        <th>Submitted</th>
+        @if($courseLabel)
+          <th>Email</th>
+        @else
+          <th>Course(s)</th>
+        @endif
+        <th>NRC</th>
       </tr>
     </thead>
     <tbody>
@@ -234,32 +200,25 @@
           <td style="color:#999">{{ $record->id }}</td>
           <td>
             {{ $record->full_name }}
-            <div class="sub">{{ $record->email }}</div>
+            @if(!$courseLabel)
+              <div class="sub">{{ $record->email }}</div>
+            @endif
           </td>
           <td>{{ $record->phone }}</td>
-          <td>{{ $record->location }}</td>
-          <td>
-            @foreach($record->courses as $course)
-              {{ $course->title }}@if(!$loop->last), @endif
-            @endforeach
-          </td>
-          <td>
-            @php
-              $badgeMap = [
-                'pending'  => 'badge-pending',
-                'approved' => 'badge-approved',
-                'partial'  => 'badge-partial',
-                'rejected' => 'badge-rejected',
-              ];
-              $badgeClass = $badgeMap[$record->status] ?? 'badge-pending';
-            @endphp
-            <span class="badge {{ $badgeClass }}">{{ ucfirst($record->status) }}</span>
-          </td>
-          <td style="white-space:nowrap">{{ $record->created_at->format('d M Y') }}</td>
+          @if($courseLabel)
+            <td>{{ $record->email }}</td>
+          @else
+            <td>
+              @foreach($record->courses as $course)
+                {{ $course->title }}@if(!$loop->last), @endif
+              @endforeach
+            </td>
+          @endif
+          <td>{{ $record->nrc }}</td>
         </tr>
       @empty
         <tr>
-          <td colspan="7" style="text-align:center;padding:24px;color:#999">
+          <td colspan="5" style="text-align:center;padding:24px;color:#999">
             No records match the selected filters.
           </td>
         </tr>
