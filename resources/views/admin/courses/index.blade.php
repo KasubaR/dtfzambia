@@ -52,7 +52,7 @@
         <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
       </svg>
     </div>
-    <div class="stat-value" style="font-size:1.5rem">₦{{ number_format($avgPrice) }}</div>
+    <div class="stat-value" style="font-size:1.5rem">K{{ number_format($avgPrice) }}</div>
     <div class="stat-label">Avg. Price</div>
   </div>
   <div class="stat-card animate-in delay-4" style="padding:16px">
@@ -164,7 +164,7 @@
             <td>
               <span style="font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;
                            color:var(--accent)">
-                ₦{{ number_format($course->price) }}
+                K{{ number_format($course->price) }}
               </span>
             </td>
             <td>

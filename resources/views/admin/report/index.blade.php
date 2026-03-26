@@ -110,7 +110,7 @@
       </svg>
     </div>
     <div class="stat-value" style="font-size:1.5rem">
-      ₦{{ number_format($summary['revenue']) }}
+      K{{ number_format($summary['revenue']) }}
     </div>
     <div class="stat-label">Total Revenue</div>
   </div>

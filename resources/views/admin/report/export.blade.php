@@ -237,7 +237,7 @@
       <div class="lbl">Rejected</div>
     </div>
     <div class="summary-cell">
-      <div class="val">₦{{ number_format($summary['revenue']) }}</div>
+      <div class="val">K{{ number_format($summary['revenue']) }}</div>
       <div class="lbl">Revenue</div>
     </div>
   </div>

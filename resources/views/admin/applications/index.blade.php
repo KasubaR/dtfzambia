@@ -25,6 +25,7 @@
           <th>#</th>
           <th>Applicant</th>
           <th>Phone</th>
+          <th>NRC</th>
           <th>Course(s)</th>
           <th>Status</th>
           <th>Date</th>
@@ -40,6 +41,7 @@
               <div class="td-sub">{{ $app->email }}</div>
             </td>
             <td>{{ $app->phone }}</td>
+            <td style="font-size:.83rem">{{ $app->nrc }}</td>
             <td>
               @foreach($app->courses as $course)
                 <span class="course-pill">{{ $course->title }}</span>
@@ -63,7 +65,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="7">
+            <td colspan="8">
               <div class="empty-state">
                 <h3>No pending applications</h3>
                 <p>All applications have been reviewed.</p>

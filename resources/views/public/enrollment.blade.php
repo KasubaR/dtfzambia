@@ -237,7 +237,13 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="course-price">K{{ number_format($course->price ?? 1750) }}</div>
+                                    <div class="course-price-wrap">
+                                        <div class="course-price">K{{ number_format($course->price ?? 1750) }}</div>
+                                        <div class="course-sponsored-badge">
+                                            <span class="material-symbols-outlined">volunteer_activism</span>
+                                            Sponsored
+                                        </div>
+                                    </div>
                                 </label>
                                 @endforeach
                             </div>
@@ -257,7 +263,10 @@
                         </div>
                         <div class="pricing-row pricing-total">
                             <span>Total Price:</span>
-                            <span id="total-price">K0</span>
+                            <span class="pricing-total-wrap">
+                                <span id="total-price">K0</span>
+                                <span id="total-free-badge">FREE — Sponsored</span>
+                            </span>
                         </div>
                         <div class="pricing-note">
                             <span class="material-symbols-outlined">info</span>

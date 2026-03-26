@@ -136,13 +136,13 @@
     {{-- Price --}}
     <div class="form-group">
       <label class="form-label" for="price">
-        Price (₦)
+        Price (K)
         <span style="color:var(--danger)">*</span>
       </label>
       <div style="position:relative">
         <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);
                      color:var(--accent);font-weight:700;font-family:'Syne',sans-serif;
-                     font-size:1rem;pointer-events:none">₦</span>
+                     font-size:1rem;pointer-events:none">K</span>
         <input
           type="number"
           id="price"
@@ -162,7 +162,7 @@
       @enderror
       {{-- Price display --}}
       <div style="margin-top:6px;font-size:.78rem;color:var(--text-muted)">
-        Formatted: <strong id="priceDisplay" style="color:var(--accent)">₦0</strong>
+        Formatted: <strong id="priceDisplay" style="color:var(--accent)">K0</strong>
       </div>
     </div>
 
@@ -197,7 +197,7 @@
             Mode
           </span>
           <span style="margin-left:auto;font-family:'Syne',sans-serif;font-weight:800;
-                       color:var(--accent)" id="previewPrice">₦0</span>
+                       color:var(--accent)" id="previewPrice">K0</span>
         </div>
       </div>
     </div>
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Price
     const val = parseFloat(priceEl.value) || 0;
-    const fmt = '₦' + val.toLocaleString('en-NG');
+    const fmt = 'K' + val.toLocaleString('en-ZM');
     pvPrice.textContent = fmt;
     priceDisp.textContent = fmt;
   }

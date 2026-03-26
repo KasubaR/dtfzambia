@@ -191,8 +191,18 @@
                          style="background: {{ $highlight ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.05)' }};
                                 border: 1px solid {{ $highlight ? 'rgba(172,193,55,.5)' : 'rgba(255,255,255,.1)' }};">
                         <span class="text-base font-semibold">{{ $tier }}</span>
-                        <span class="text-2xl font-extrabold font-headline"
-                              style="color: {{ $highlight ? 'var(--color-green)' : 'white' }};">{{ $price }}</span>
+                        <span style="display:flex; flex-direction:column; align-items:flex-end; gap:0.2rem;">
+                            <span class="text-2xl font-extrabold font-headline"
+                                  style="text-decoration:line-through; opacity:0.45; color:{{ $highlight ? 'var(--color-green)' : 'white' }};">{{ $price }}</span>
+                            <span style="display:inline-flex; align-items:center; gap:0.2rem;
+                                         font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+                                         color:var(--color-green); background:rgba(172,193,55,0.15);
+                                         border:1px solid rgba(172,193,55,0.4); border-radius:999px;
+                                         padding:0.1rem 0.55rem 0.1rem 0.3rem;">
+                                <span class="material-symbols-outlined" style="font-size:0.75rem;">volunteer_activism</span>
+                                Sponsored
+                            </span>
+                        </span>
                     </div>
                     @endforeach
                 </div>

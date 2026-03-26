@@ -30,6 +30,7 @@
           <th>#</th>
           <th>Student</th>
           <th>Phone</th>
+          <th>NRC</th>
           <th>Course(s)</th>
           <th>Status</th>
           <th>Date</th>
@@ -45,6 +46,7 @@
               <div class="td-sub">{{ $enrollment->email }}</div>
             </td>
             <td>{{ $enrollment->phone }}</td>
+            <td style="font-size:.83rem">{{ $enrollment->nrc }}</td>
             <td>
               @foreach($enrollment->courses as $course)
                 <span class="course-pill">{{ $course->title }}</span>
@@ -68,7 +70,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="7">
+            <td colspan="8">
               <div class="empty-state">
                 <h3>No {{ $tab }} enrollments</h3>
                 <p>No students have been {{ $tab }} yet.</p>

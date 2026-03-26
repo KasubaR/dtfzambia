@@ -269,11 +269,48 @@
     color: var(--color-green);
 }
 
+.course-price-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    white-space: nowrap;
+}
+
 .course-price {
     font-weight: 800;
     font-size: 1rem;
     color: var(--color-primary);
-    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.course-sponsored-badge {
+    display: none;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-green);
+    background: rgba(22, 163, 74, 0.1);
+    border: 1px solid rgba(22, 163, 74, 0.3);
+    border-radius: 999px;
+    padding: 0.1rem 0.5rem 0.1rem 0.25rem;
+}
+
+.course-sponsored-badge .material-symbols-outlined {
+    font-size: 0.75rem;
+}
+
+.course-card.selected .course-price {
+    text-decoration: line-through;
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+.course-card.selected .course-sponsored-badge {
+    display: flex;
 }
 
 /* Pricing Summary */
@@ -321,6 +358,32 @@
 .pricing-note .material-symbols-outlined {
     font-size: 0.9rem;
     flex-shrink: 0;
+}
+
+/* Total Price — Sponsored State */
+.pricing-total-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+#total-free-badge {
+    display: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4ade80;
+}
+
+.pricing-summary.has-selection #total-price {
+    text-decoration: line-through;
+    opacity: 0.55;
+}
+
+.pricing-summary.has-selection #total-free-badge {
+    display: block;
 }
 
 /* Submit Button */
@@ -377,7 +440,7 @@
         flex-wrap: wrap;
     }
     
-    .course-price {
+    .course-price-wrap {
         margin-left: 2rem;
     }
 }

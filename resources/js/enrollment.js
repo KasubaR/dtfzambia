@@ -1,4 +1,4 @@
-{{-- public/js/enrollment.js --}}
+// resources/js/enrollment.js
 // Enrollment Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -40,6 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        // Toggle sponsored state on pricing summary
+        const pricingSummary = document.getElementById('pricing-summary');
+        if (pricingSummary) {
+            pricingSummary.classList.toggle('has-selection', count > 0);
+        }
+
         // Enable/disable submit button based on selection
         if (submitBtn) {
             submitBtn.disabled = count === 0;
