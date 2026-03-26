@@ -20,17 +20,9 @@ class DashboardController extends Controller
         )->count();
         $approved          = Enrollment::where('status', 'approved')->count();
         $rejected          = Enrollment::where('status', 'rejected')->count();
-        $totalCourses      = Course::where('is_active', true)->count();
-
         $approvalRate  = $totalEnrollments > 0 ? round($approved  / $totalEnrollments * 100) : 0;
         $rejectionRate = $totalEnrollments > 0 ? round($rejected  / $totalEnrollments * 100) : 0;
 
-        $stats = compact(
-            'totalEnrollments', 'enrollmentsToday', 'pending',
-            'approved', 'rejected', 'approvalRate', 'rejectionRate', 'totalCourses'
-        );
-
-        // Map to the keys the view expects (snake_case)
         $stats = [
             'total_enrollments'  => $totalEnrollments,
             'enrollments_today'  => $enrollmentsToday,
@@ -39,7 +31,6 @@ class DashboardController extends Controller
             'rejected'           => $rejected,
             'approval_rate'      => $approvalRate,
             'rejection_rate'     => $rejectionRate,
-            'total_courses'      => $totalCourses,
         ];
 
         /* ── Popular Courses ─────────────────────────────────── */
@@ -62,22 +53,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        /* ── Recent Activity ─────────────────────────────────── */
-        $recentActivity = Enrollment::withCount('courses')
-            ->latest()
-            ->take(8)
-            ->get()
-            ->map(fn ($e) => [
-                'text'  => "<strong>{$e->full_name}</strong> submitted an application ({$e->courses_count} course(s))",
-                'time'  => $e->created_at->diffForHumans(),
-                'color' => match ($e->status) {
-                    'approved' => 'green',
-                    'rejected' => 'red',
-                    'partial'  => 'blue',
-                    default    => 'orange',
-                },
-            ]);
-
         /* ── Alerts ──────────────────────────────────────────── */
         $alerts = collect();
 
@@ -95,7 +70,6 @@ class DashboardController extends Controller
         return view('admin.dashboard.index', compact(
             'stats',
             'popularCourses',
-            'recentActivity',
             'alerts',
             'recentApplications',
         ));

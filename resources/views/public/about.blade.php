@@ -100,20 +100,9 @@
                         <span class="material-symbols-outlined text-brand-green">flag</span>
                         Goal
                     </h3>
-                    <ul class="space-y-3 text-[var(--color-text-muted)] leading-relaxed">
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-brand-green flex-shrink-0">info</span>
-                            <span>- To provide information</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-brand-green flex-shrink-0">campaign</span>
-                            <span>- Advertise our programs</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-brand-green flex-shrink-0">school</span>
-                            <span>- A platform for registrations and lessons, grades, and status updates</span>
-                        </li>
-                    </ul>
+                    <p class="text-[var(--color-text-muted)] leading-relaxed">
+                        Our goal is to equip at least 1,000 Zambians annually with job-ready digital skills — reducing the barriers to entry in tech, marketing, and design careers. We measure success not by enrolments alone, but by the businesses launched, jobs secured, and income earned by our graduates.
+                    </p>
                 </div>
             </div>
         </div>

@@ -18,10 +18,37 @@
     </a>
   </div>
 
+  {{-- Bulk Action Toolbar --}}
+  <div id="appsBulkBar" class="bulk-bar" style="display:none">
+    <span id="appsBulkCount" class="bulk-count">0 selected</span>
+
+    <form method="POST" action="{{ route('admin.applications.bulk-approve') }}" id="formBulkApprove" class="bulk-form">
+      @csrf
+      <div id="approveIds"></div>
+      <button type="submit" class="btn btn-sm btn-success">Approve Selected</button>
+    </form>
+
+    <form method="POST" action="{{ route('admin.applications.bulk-reject') }}" id="formBulkReject" class="bulk-form">
+      @csrf
+      <div id="rejectIds"></div>
+      <button type="submit" class="btn btn-sm btn-danger">Reject Selected</button>
+    </form>
+
+    <form method="POST" action="{{ route('admin.applications.bulk-destroy') }}" id="formBulkDestroy" class="bulk-form">
+      @csrf
+      @method('DELETE')
+      <div id="destroyIds"></div>
+      <button type="submit" class="btn btn-sm btn-danger">Delete Selected</button>
+    </form>
+  </div>
+
   <div class="table-wrap">
     <table class="admin-table" id="appsTable">
       <thead>
         <tr>
+          <th style="width:36px;text-align:center">
+            <input type="checkbox" class="bulk-checkbox" id="selectAllApps">
+          </th>
           <th>#</th>
           <th>Applicant</th>
           <th>Phone</th>
@@ -35,6 +62,9 @@
       <tbody>
         @forelse($applications as $app)
           <tr>
+            <td style="text-align:center">
+              <input type="checkbox" class="bulk-checkbox app-checkbox" value="{{ $app->id }}">
+            </td>
             <td style="color:var(--text-muted);font-size:.78rem">{{ $app->id }}</td>
             <td>
               <div class="td-name">{{ $app->full_name }}</div>
@@ -65,7 +95,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="8">
+            <td colspan="9">
               <div class="empty-state">
                 <h3>No pending applications</h3>
                 <p>All applications have been reviewed.</p>
@@ -85,3 +115,69 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+  const selected = new Set();
+  const bulkBar   = document.getElementById('appsBulkBar');
+  const countEl   = document.getElementById('appsBulkCount');
+  const selectAll = document.getElementById('selectAllApps');
+  const idContainers = {
+    approve: document.getElementById('approveIds'),
+    reject:  document.getElementById('rejectIds'),
+    destroy: document.getElementById('destroyIds'),
+  };
+
+  function syncBulkBar() {
+    if (selected.size === 0) {
+      bulkBar.style.display = 'none';
+      return;
+    }
+    bulkBar.style.display = 'flex';
+    countEl.textContent = selected.size + ' selected';
+
+    Object.values(idContainers).forEach(container => {
+      container.innerHTML = '';
+      selected.forEach(id => {
+        const input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = 'ids[]';
+        input.value = id;
+        container.appendChild(input);
+      });
+    });
+  }
+
+  document.querySelectorAll('.app-checkbox').forEach(cb => {
+    cb.addEventListener('change', function () {
+      this.checked ? selected.add(this.value) : selected.delete(this.value);
+      syncBulkBar();
+    });
+  });
+
+  selectAll.addEventListener('change', function () {
+    document.querySelectorAll('.app-checkbox').forEach(cb => {
+      cb.checked = this.checked;
+      this.checked ? selected.add(cb.value) : selected.delete(cb.value);
+    });
+    syncBulkBar();
+  });
+
+  document.getElementById('formBulkApprove').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (confirm('Approve ' + selected.size + ' application(s)?')) this.submit();
+  });
+
+  document.getElementById('formBulkReject').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (confirm('Reject ' + selected.size + ' application(s)?')) this.submit();
+  });
+
+  document.getElementById('formBulkDestroy').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (confirm('Permanently delete ' + selected.size + ' application(s)? This cannot be undone.')) this.submit();
+  });
+})();
+</script>
+@endpush

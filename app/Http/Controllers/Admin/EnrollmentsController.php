@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EnrollmentsController extends Controller
 {
@@ -26,5 +27,67 @@ class EnrollmentsController extends Controller
         $enrollments = $query->paginate(20)->withQueryString();
 
         return view('admin.enrollments.index', compact('enrollments', 'tab'));
+    }
+
+    public function bulkExport(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array|min:1',
+            'ids.*' => 'integer|exists:enrollments,id',
+        ]);
+
+        $enrollments = Enrollment::with('courses')
+            ->whereIn('id', $validated['ids'])
+            ->get();
+
+        $filename = 'enrollments-export-' . now()->format('Ymd-His') . '.csv';
+
+        return response()->streamDownload(function () use ($enrollments): void {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, [
+                'ID', 'Full Name', 'Email', 'Phone', 'NRC',
+                'Status', 'Courses', 'Submitted At',
+            ]);
+            foreach ($enrollments as $e) {
+                fputcsv($handle, [
+                    $e->id,
+                    $e->full_name,
+                    $e->email,
+                    $e->phone,
+                    $e->nrc,
+                    $e->status,
+                    $e->courses->pluck('title')->implode('; '),
+                    $e->created_at->format('Y-m-d H:i'),
+                ]);
+            }
+            fclose($handle);
+        }, $filename, ['Content-Type' => 'text/csv']);
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array|min:1',
+            'ids.*' => 'integer|exists:enrollments,id',
+        ]);
+
+        $ids = $validated['ids'];
+
+        $nonRejected = Enrollment::whereIn('id', $ids)
+            ->where('status', '!=', 'rejected')
+            ->count();
+
+        if ($nonRejected > 0) {
+            return redirect()->route('admin.enrollments.index', ['tab' => 'rejected'])
+                ->with('error', 'Only rejected enrollments can be deleted.');
+        }
+
+        DB::transaction(function () use ($ids): void {
+            DB::table('course_enrollment')->whereIn('enrollment_id', $ids)->delete();
+            Enrollment::whereIn('id', $ids)->delete();
+        });
+
+        return redirect()->route('admin.enrollments.index', ['tab' => 'rejected'])
+            ->with('success', count($ids) . ' enrollment(s) permanently deleted.');
     }
 }

@@ -556,6 +556,23 @@ a.page-btn {
   border-bottom: 1px solid var(--border);
   background: var(--surface-2);
 }
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  background: var(--accent-dim, rgba(99,102,241,.08));
+  border-bottom: 1px solid var(--border);
+}
+.bulk-count {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: auto;
+}
+.bulk-form { display: contents; }
+.bulk-checkbox { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
 .filter-input, .filter-select {
   background: var(--surface);
   border: 1px solid var(--border);

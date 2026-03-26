@@ -101,6 +101,126 @@ class ApplicationsController extends Controller
             ->with('success', $message);
     }
 
+    public function bulkApprove(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array|min:1',
+            'ids.*' => 'integer|exists:enrollments,id',
+        ]);
+
+        $count = 0;
+        $skipped = 0;
+
+        foreach ($validated['ids'] as $id) {
+            $enrollment = Enrollment::with('courses')->find($id);
+            if (! $enrollment) {
+                continue;
+            }
+
+            $updated = 0;
+            foreach ($enrollment->courses as $course) {
+                if ($course->pivot->status !== Enrollment::PIVOT_PENDING) {
+                    $skipped++;
+                    continue;
+                }
+                $enrollment->courses()->updateExistingPivot($course->id, [
+                    'status'      => Enrollment::PIVOT_ACCEPTED,
+                    'reviewed_at' => now(),
+                ]);
+                $updated++;
+            }
+
+            if ($updated > 0) {
+                $enrollment->refresh()->load('courses');
+                $enrollment->status = $enrollment->rollupStatus();
+                $enrollment->save();
+                $this->maybeSendDecisionEmail($enrollment);
+                $count++;
+            }
+        }
+
+        if ($count === 0) {
+            return redirect()->route('admin.applications.index')
+                ->with('warning', 'No changes applied — selected application(s) were already decided.');
+        }
+
+        $message = "Approved {$count} application(s).";
+        if ($skipped > 0) {
+            $message .= " {$skipped} course decision(s) were already set and skipped.";
+        }
+
+        return redirect()->route('admin.applications.index')->with('success', $message);
+    }
+
+    public function bulkReject(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array|min:1',
+            'ids.*' => 'integer|exists:enrollments,id',
+        ]);
+
+        $count = 0;
+        $skipped = 0;
+
+        foreach ($validated['ids'] as $id) {
+            $enrollment = Enrollment::with('courses')->find($id);
+            if (! $enrollment) {
+                continue;
+            }
+
+            $updated = 0;
+            foreach ($enrollment->courses as $course) {
+                if ($course->pivot->status !== Enrollment::PIVOT_PENDING) {
+                    $skipped++;
+                    continue;
+                }
+                $enrollment->courses()->updateExistingPivot($course->id, [
+                    'status'      => Enrollment::PIVOT_REJECTED,
+                    'reviewed_at' => now(),
+                ]);
+                $updated++;
+            }
+
+            if ($updated > 0) {
+                $enrollment->refresh()->load('courses');
+                $enrollment->status = $enrollment->rollupStatus();
+                $enrollment->save();
+                $this->maybeSendDecisionEmail($enrollment);
+                $count++;
+            }
+        }
+
+        if ($count === 0) {
+            return redirect()->route('admin.applications.index')
+                ->with('warning', 'No changes applied — selected application(s) were already decided.');
+        }
+
+        $message = "Rejected {$count} application(s).";
+        if ($skipped > 0) {
+            $message .= " {$skipped} course decision(s) were already set and skipped.";
+        }
+
+        return redirect()->route('admin.applications.index')->with('warning', $message);
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array|min:1',
+            'ids.*' => 'integer|exists:enrollments,id',
+        ]);
+
+        $ids = $validated['ids'];
+
+        DB::transaction(function () use ($ids): void {
+            DB::table('course_enrollment')->whereIn('enrollment_id', $ids)->delete();
+            Enrollment::whereIn('id', $ids)->delete();
+        });
+
+        return redirect()->route('admin.applications.index')
+            ->with('success', count($ids) . ' application(s) permanently deleted.');
+    }
+
     /**
      * @return array<int, string> course_id => accepted|rejected
      */

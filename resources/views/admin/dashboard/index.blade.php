@@ -90,54 +90,11 @@
     </div>
   </div>
 
-  <div class="stat-card animate-in delay-5">
-    <div class="stat-icon blue">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
-        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-      </svg>
-    </div>
-    <div class="stat-value" data-count="{{ $stats['total_courses'] }}">0</div>
-    <div class="stat-label">Active Courses</div>
-    <div class="stat-change up" style="color:var(--info)">
-      All programmes
-    </div>
-  </div>
 
 </div>{{-- /.stats-grid --}}
 
 {{-- ── Two-column row ─────────────────────────────────────── --}}
 <div class="grid-2">
-
-  {{-- Recent Activity --}}
-  <div class="panel animate-in">
-    <div class="panel-header">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-           style="width:17px;height:17px;color:var(--accent)">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-      <span class="panel-title">Recent Activity</span>
-    </div>
-    <div class="activity-list">
-      @forelse($recentActivity as $activity)
-        <div class="activity-item">
-          <div class="activity-dot {{ $activity['color'] }}"></div>
-          <div style="flex:1">
-            <div class="activity-text">{!! $activity['text'] !!}</div>
-            <div class="activity-time">{{ $activity['time'] }}</div>
-          </div>
-        </div>
-      @empty
-        <div class="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-          <h3>No activity yet</h3>
-          <p>Actions will appear here as they happen.</p>
-        </div>
-      @endforelse
-    </div>
-  </div>
 
   {{-- Popular Courses --}}
   <div class="panel animate-in delay-2">

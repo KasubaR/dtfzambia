@@ -22,8 +22,8 @@ class EnrollmentController extends Controller
     {
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255|unique:enrollments,email',
+            'phone' => 'required|string|max:20|unique:enrollments,phone',
             'nrc' => 'required|string|max:20|unique:enrollments,nrc',
             'age_range' => 'required|in:18-24,25-34,35-44,45+',
             'location' => 'required|string|max:255',
