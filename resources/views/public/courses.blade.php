@@ -547,7 +547,7 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="mailto:info@digitalfuturelabs.co.zm"
+                    <a href="mailto:info@dflzambia.com"
                        class="inline-flex items-center gap-2 px-10 py-5 rounded-xl font-bold text-sm uppercase tracking-widest transition-all duration-200"
                        style="background: white; color: var(--color-primary);"
                        onmouseover="this.style.background='var(--color-green-light)'; this.style.color='var(--color-green-dark)';"

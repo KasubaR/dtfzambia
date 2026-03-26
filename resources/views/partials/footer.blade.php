@@ -98,12 +98,12 @@
                     <li class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-sm"
                               style="color: var(--color-green);">mail</span>
-                        <a href="mailto:info@digitalfuturelabs.co.zm"
+                        <a href="mailto:info@dflzambia.com"
                            class="text-sm transition-colors duration-200"
                            style="color: var(--color-text-muted);"
                            onmouseover="this.style.color='var(--color-primary)';"
                            onmouseout="this.style.color='var(--color-text-muted)';">
-                            info@digitalfuturelabs.co.zm
+                            info@dflzambia.com
                         </a>
                     </li>
                     <li class="flex items-center gap-3">

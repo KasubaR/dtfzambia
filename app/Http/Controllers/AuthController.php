@@ -17,6 +17,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             if (Auth::user()->is_admin) {
                 Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
                 return back()->withErrors([
                     'email' => 'Please use the admin login page.',
                 ])->onlyInput('email');

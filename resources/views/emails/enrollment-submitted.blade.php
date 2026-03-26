@@ -31,7 +31,7 @@
 
     <p>Our team typically reviews applications within a few business days. If anything is unclear, we may contact you using the phone number or email you provided.</p>
 
-    <p>Questions? Email <a href="mailto:info@digitalfuturelabs.co.zm">info@digitalfuturelabs.co.zm</a>.</p>
+    <p>Questions? Email <a href="mailto:info@dflzambia.com">info@dflzambia.com</a>.</p>
 
     <p style="margin-top: 32px; color: #5a5e72; font-size: 14px;">— Digital Future Labs</p>
 </body>

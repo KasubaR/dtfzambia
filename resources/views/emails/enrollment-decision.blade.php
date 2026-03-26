@@ -53,7 +53,7 @@
     <p style="margin-top: 24px; font-size: 14px; color: #5a5e72;">Reference: enrollment #{{ $enrollment->id }}</p>
 
     <p style="margin-top: 16px; color: #5a5e72; font-size: 14px;">— Digital Future Labs<br>
-        <a href="mailto:info@digitalfuturelabs.co.zm">info@digitalfuturelabs.co.zm</a>
+        <a href="mailto:info@dflzambia.com">info@dflzambia.com</a>
     </p>
 </body>
 </html>

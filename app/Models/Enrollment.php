@@ -34,12 +34,15 @@ class Enrollment extends Model
         'enrolled_at',
         'admin_notes',
         'decision_email_sent_at',
+        'verification_code',
+        'verification_expires_at',
     ];
 
     protected $casts = [
         'total_price' => 'decimal:2',
         'enrolled_at' => 'datetime',
         'decision_email_sent_at' => 'datetime',
+        'verification_expires_at' => 'datetime',
     ];
 
     /* ── Relationships ──────────────────────────────────────── */

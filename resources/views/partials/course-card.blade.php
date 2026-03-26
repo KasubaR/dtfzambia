@@ -3,9 +3,9 @@
 --}}
 <div class="cc-card"
      data-course-id="{{ $course->id }}"
-     data-price="{{ $course->price ?? 1750 }}"
-     data-mode="{{ strtolower($course->mode ?? 'hybrid') }}"
-     data-duration="{{ strtolower(str_replace(' ', '-', $course->duration ?? '10 days')) }}">
+     data-price="{{ $course->price }}"
+     data-mode="{{ $course->mode !== null ? strtolower($course->mode) : '' }}"
+     data-duration="{{ $course->duration !== null ? strtolower(str_replace(' ', '-', $course->duration)) : '' }}">
 
     {{-- ── Image ──────────────────────────────────────────── --}}
     <div class="cc-image">
@@ -17,7 +17,9 @@
             </div>
         @endif
 
+        @if($course->is_sponsored ?? false)
         <span class="cc-sponsored-badge">Sponsored</span>
+        @endif
     </div>
 
     {{-- ── Body ───────────────────────────────────────────── --}}

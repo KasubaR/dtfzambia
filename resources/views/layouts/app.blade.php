@@ -27,6 +27,7 @@
 
     {{-- Favicon --}}
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     {{-- Compiled CSS (Vite) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])

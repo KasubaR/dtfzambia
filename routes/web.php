@@ -26,9 +26,12 @@ Route::get('/courses', [CourseController::class, 'index'])->name('courses.index'
 Route::get('/about', fn () => view('public.about'))->name('about');
 
 // Enrollment — public, no account required
-Route::get('/enrollment',              [EnrollmentController::class, 'create'])->name('enrollment.create');
-Route::post('/enrollment',             [EnrollmentController::class, 'store'])->name('enrollment.store');
-Route::get('/enrollment/success/{id}', [EnrollmentController::class, 'success'])->name('enrollment.success');
+Route::get('/enrollment',                        [EnrollmentController::class, 'create'])->name('enrollment.create');
+Route::post('/enrollment',                       [EnrollmentController::class, 'store'])->name('enrollment.store');
+Route::get('/enrollment/verify/{id}',            [EnrollmentController::class, 'showVerify'])->name('enrollment.verify');
+Route::post('/enrollment/verify/{id}',           [EnrollmentController::class, 'verify'])->name('enrollment.verify.submit');
+Route::post('/enrollment/verify/{id}/resend',    [EnrollmentController::class, 'resend'])->name('enrollment.resend');
+Route::get('/enrollment/success/{id}',           [EnrollmentController::class, 'success'])->name('enrollment.success');
 
 /*
 |--------------------------------------------------------------------------

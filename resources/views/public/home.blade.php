@@ -386,7 +386,7 @@
                 <h2 class="text-3xl font-bold font-headline mb-8" style="color: var(--color-primary);">Get in Touch</h2>
                 <div class="space-y-7 mb-10">
                     @foreach ([
-                        ['mail',        'Email Us',  'info@digitalfuturelabs.co.zm', 'mailto:info@digitalfuturelabs.co.zm'],
+                        ['mail',        'Email Us',  'info@dflzambia.com', 'mailto:info@dflzambia.com'],
                         ['call',        'Phone',     '+260 970 000 000',             'tel:+260970000000'],
                         ['location_on', 'Location',  'Innovation Hub, Longacres, Lusaka', '#'],
                     ] as [$icon, $title, $value, $href])
