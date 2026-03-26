@@ -1,0 +1,76 @@
+{{-- resources/views/partials/course-card.blade.php
+     Usage: @include('partials.course-card', ['course' => $course])
+--}}
+<div class="cc-card"
+     data-course-id="{{ $course->id }}"
+     data-price="{{ $course->price ?? 1750 }}"
+     data-mode="{{ strtolower($course->mode ?? 'hybrid') }}"
+     data-duration="{{ strtolower(str_replace(' ', '-', $course->duration ?? '10 days')) }}">
+
+    {{-- ── Image ──────────────────────────────────────────── --}}
+    <div class="cc-image">
+        @if (!empty($course->image))
+            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" />
+        @else
+            <div class="cc-image-placeholder">
+                <span class="material-symbols-outlined">{{ $course->icon ?? 'menu_book' }}</span>
+            </div>
+        @endif
+
+        <span class="cc-sponsored-badge">Sponsored</span>
+    </div>
+
+    {{-- ── Body ───────────────────────────────────────────── --}}
+    <div class="cc-body">
+
+        {{-- Meta --}}
+        <div class="cc-meta">
+            <span class="material-symbols-outlined">schedule</span>
+            <span>{{ $course->duration ?? '10 Days' }} &bull; {{ $course->mode ?? 'Hybrid' }}</span>
+        </div>
+
+        {{-- Optional badges --}}
+        @if (($course->is_popular ?? false) || ($course->is_recommended ?? false) || ($course->is_new ?? false))
+        <div class="cc-badges">
+            @if ($course->is_popular ?? false)
+                <span class="badge badge-green">⭐ Popular</span>
+            @endif
+            @if ($course->is_recommended ?? false)
+                <span class="badge badge-blue">Recommended</span>
+            @endif
+            @if ($course->is_new ?? false)
+                <span class="badge" style="background:#fef9e7; color:#92400e;">New</span>
+            @endif
+        </div>
+        @endif
+
+        <h3 class="cc-title">{{ $course->title }}</h3>
+        <p class="cc-desc">{{ $course->description }}</p>
+
+        {{-- ── Footer ──────────────────────────────────────── --}}
+        <div class="cc-footer">
+
+            <div class="cc-price-row">
+                <div>
+                    <p class="cc-price-label">Fee</p>
+                    <p class="cc-price-amount">K{{ number_format($course->price ?? 1750) }}</p>
+                </div>
+                <div>
+                    <p class="cc-status-label">Current Status</p>
+                    <p class="cc-status-value">FULLY SPONSORED</p>
+                </div>
+            </div>
+
+            <div class="cc-actions">
+
+                {{-- CTA depends on auth state --}}
+                <a href="{{ route('enrollment.create') }}" class="cc-btn-apply">
+                    Apply Now
+                    <span class="material-symbols-outlined" style="font-size:.95rem;">arrow_forward</span>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>

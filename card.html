@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Courses | Digital Future Labs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "surface-variant": "#e2e2eb",
+                        "on-primary-fixed-variant": "#00419e",
+                        "primary": "#00327d",
+                        "on-surface": "#191b22",
+                        "tertiary-fixed": "#ecdcff",
+                        "secondary-fixed-dim": "#2ddbde",
+                        "surface": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#d5baff",
+                        "surface-container-high": "#e7e7f0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#a5bdff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191b22",
+                        "background": "#faf8ff",
+                        "surface-container": "#ededf6",
+                        "secondary-fixed": "#5af8fb",
+                        "inverse-on-surface": "#f0f0f9",
+                        "error": "#ba1a1a",
+                        "secondary": "#00696b",
+                        "surface-dim": "#d9d9e2",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b1c5ff",
+                        "on-tertiary-container": "#cfb1ff",
+                        "outline-variant": "#c3c6d5",
+                        "on-secondary-fixed": "#002020",
+                        "on-tertiary-fixed": "#270057",
+                        "surface-container-highest": "#e2e2eb",
+                        "surface-tint": "#2559bd",
+                        "tertiary": "#4a0099",
+                        "on-secondary-fixed-variant": "#004f51",
+                        "primary-container": "#0047ab",
+                        "on-tertiary-fixed-variant": "#5e00c1",
+                        "on-secondary-container": "#006e70",
+                        "inverse-surface": "#2e3037",
+                        "on-error": "#ffffff",
+                        "outline": "#737784",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "tertiary-container": "#6700d1",
+                        "on-surface-variant": "#434653",
+                        "on-primary-fixed": "#001946",
+                        "surface-bright": "#faf8ff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#56f5f8",
+                        "surface-container-low": "#f3f3fc"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .overhanging-headline {
+            margin-left: -0.5rem;
+        }
+        @media (min-width: 1024px) {
+            .overhanging-headline {
+                margin-left: -2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-sm">
+<div class="flex justify-between items-center px-6 md:px-12 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold tracking-tight text-blue-900">Digital Future Labs</div>
+<!-- Desktop Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-blue-700 font-bold border-b-2 border-blue-700 pb-1 font-label text-[12px] tracking-[0.05em] uppercase" href="#">Courses</a>
+<a class="text-slate-600 hover:text-blue-600 font-label text-[12px] tracking-[0.05em] uppercase transition-colors" href="#">Workshops</a>
+<a class="text-slate-600 hover:text-blue-600 font-label text-[12px] tracking-[0.05em] uppercase transition-colors" href="#">Resources</a>
+<a class="text-slate-600 hover:text-blue-600 font-label text-[12px] tracking-[0.05em] uppercase transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block px-6 py-2.5 bg-primary text-on-primary font-semibold rounded-md hover:scale-95 duration-200 shadow-sm">Sign In</button>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative px-6 py-24 md:py-32 max-w-7xl mx-auto overflow-hidden">
+<div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+<div>
+<span class="inline-block px-4 py-1.5 mb-6 bg-tertiary-container text-on-tertiary-container font-label text-[11px] tracking-wider uppercase rounded-full">Educational Excellence</span>
+<h1 class="font-headline text-5xl md:text-7xl font-bold text-primary tracking-tight leading-[1.1] overhanging-headline mb-8">
+                        Our <br/><span class="text-secondary">Courses</span>
+</h1>
+<p class="text-body-lg text-on-surface-variant max-w-lg mb-10 text-lg leading-relaxed">
+                        Equip yourself with the digital tools of the modern economy. Learn hands-on from industry experts in Zambia's premier innovation hub.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 bg-primary text-on-primary font-semibold rounded-md shadow-lg hover:opacity-90 transition-all flex items-center gap-2">
+                            Explore Curriculum
+                            <span class="material-symbols-outlined">arrow_downward</span>
+</button>
+</div>
+</div>
+<div class="relative">
+<div class="aspect-square rounded-xl overflow-hidden shadow-2xl rotate-3 scale-95 md:scale-100">
+<img class="w-full h-full object-cover" data-alt="Modern bright collaborative office space with professional students working on laptops at sleek wooden desks with lush plants" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMNsAIQ3Q5AQplKD0pvb2Ozu28wmKk48CKplFEwkFi4kJPZxhgp4hCaXxA-axj8rO2oAkhxLz7uPXj9OTmmBSbhb0MUnQyUlAHZ_aJg2XrEJpvtHh42r89kkV5S58_LvKilVgpK3SHPKkyFqO-PkLaGSaIrF80UNwcsAznxK2vtBZkdBZ93Hy4h0u1FVKYm6OzNeG3vz7HsF1NIISaRpM6o_z78BHdbf0Q5SX0I-CQ3qzNvFChcwjwhQXMobmQ72zo6KyjX_BebP0"/>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl hidden md:block border border-surface-container">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-weight="fill">verified</span>
+</div>
+<div>
+<p class="font-headline font-bold text-primary">Industry Certified</p>
+<p class="text-xs text-on-surface-variant font-label uppercase tracking-widest">Global Recognition</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Filter / Categories -->
+<section class="bg-surface-container-low py-12 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<h2 class="font-headline text-2xl font-bold text-primary">Curated Learning Paths</h2>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-medium text-sm transition-all">All</button>
+<button class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium text-sm transition-all">Business &amp; Strategy</button>
+<button class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium text-sm transition-all">Marketing</button>
+<button class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium text-sm transition-all">Tech &amp; Development</button>
+<button class="px-6 py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-medium text-sm transition-all">Design</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Course Grid -->
+<section class="py-24 px-6 max-w-7xl mx-auto">
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Entrepreneurship Basics -->
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-transform hover:-translate-y-2 duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Team of young entrepreneurs brainstorming in a modern minimalist office with colorful sticky notes on glass wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9neUiwU6nB9zQkqJW6oeQ4otMMeUudKj9DMRMCmWMQN29EZfPfmrzEwcbkdFqB9CpbnXjwDSlpgaXM9VSwrqb1M9tN9k0mhaXySxB6HInH3KoDZNGAaw2sVtaDHb62mkJejUns2IUO0DkmcIJ-ZnkSMAO5kMZoHCNuxBYqAKm_m_rUJcRMfaOHJfFD6Z6M-EbWNFcg5IZZ8_x38CUaZH80jxVL3BqTbEf7roiCVh7rWLxtpi_dQsqz7t3z8m9weghJ5K7gBBMeoQ"/>
+<div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label text-[10px] tracking-widest uppercase font-bold">Sponsored</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<span class="text-xs font-label uppercase tracking-wider text-on-surface-variant">10 Days • Hybrid</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary mb-3">Entrepreneurship Basics</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-1">
+                            Master the fundamentals of lean methodology and sustainable growth in the Zambian market landscape.
+                        </p>
+<div class="pt-6 border-t border-surface-variant">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-outline">Fee</p>
+<p class="text-lg font-bold text-primary line-through opacity-50">K1750</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label uppercase tracking-widest text-secondary font-bold">Current Status</p>
+<p class="text-lg font-bold text-secondary">FULLY SPONSORED</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity">Apply</button>
+<a class="text-primary font-bold text-sm hover:underline decoration-2 underline-offset-4" href="#">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Digital Marketing -->
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-transform hover:-translate-y-2 duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Close up of high tech digital screens displaying marketing analytics data and social media trends with neon glows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkNxagectmzB3r_r0cZ3f3AdJHjrQubMXso05vmRu6Rc6k741dWcaqfFNIWdNqCoWQQddyb4h4KnhgXIaS248x8lPJ1pqDXkZBfaLtoX7RiFQ7MXREibbHbrKukBF4uBkmq5-8koFaW1f-s9qWP5KpUZc6QyMNmHQy8lweK2nnvGka_R6Qa86QoSTEV_vktLFAKalJJnRFBAqGRWX2ZYI520LByZAj7JzyC01FWzTdHa20ZhvPnvw7j2xzOtTTb__OW1k4FpWrpJY"/>
+<div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label text-[10px] tracking-widest uppercase font-bold">Sponsored</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<span class="text-xs font-label uppercase tracking-wider text-on-surface-variant">10 Days • Hybrid</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary mb-3">Digital Marketing</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-1">
+                            Harness social media, SEO, and paid advertising to scale your brand across digital frontiers.
+                        </p>
+<div class="pt-6 border-t border-surface-variant">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-outline">Fee</p>
+<p class="text-lg font-bold text-primary line-through opacity-50">K1750</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label uppercase tracking-widest text-secondary font-bold">Current Status</p>
+<p class="text-lg font-bold text-secondary">FULLY SPONSORED</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity">Apply</button>
+<a class="text-primary font-bold text-sm hover:underline decoration-2 underline-offset-4" href="#">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+<!-- AI for SMEs -->
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-transform hover:-translate-y-2 duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Vibrant abstract 3D visualization of artificial intelligence neural networks in deep purple and teal neon colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsLNSBysfkTIk6vTvB1hzsyHVmt-UwWp3YceNRb8N3K-sZ6Yv0e7gxSVVIyL-piLcjhSUeVKwEqLiL4aNEIas0dzNt8KgAy6BrByJC4ukxy_eO-Zj7x0hgp-HmI3CwaYV6D4VCzw8GnmscFZJohxl9QOuXhR3jyKhFxTrS8dOZMPRTfejIWEakxZ9VgvjFnI0gCv1sDDA7LFO9MrlwKzBNRZaVKP9vMCTJcWlytv3c3ACGnhqRT1--ldSLdR-4lhVjuocA1URRAJk"/>
+<div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label text-[10px] tracking-widest uppercase font-bold">Sponsored</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<span class="text-xs font-label uppercase tracking-wider text-on-surface-variant">10 Days • Hybrid</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary mb-3">AI for SMEs</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-1">
+                            Integrate generative AI and automation into your small business workflow for maximum efficiency.
+                        </p>
+<div class="pt-6 border-t border-surface-variant">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-outline">Fee</p>
+<p class="text-lg font-bold text-primary line-through opacity-50">K1750</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label uppercase tracking-widest text-secondary font-bold">Current Status</p>
+<p class="text-lg font-bold text-secondary">FULLY SPONSORED</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity">Apply</button>
+<a class="text-primary font-bold text-sm hover:underline decoration-2 underline-offset-4" href="#">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Website Design -->
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-transform hover:-translate-y-2 duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Creative professional designer workspace with large iMac screen showing sleek modern web UI design layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHioKSWlCnmnGwGDT0RlToBQ88T1_acW6tTAKzSGNoGsZC9XoSfA_62mgDLbtx7fn15h9vv_8ExNu_qOLTUf_BpsL3g-XMkIQGxZvI2rmhWWcWiRwjIqQ5R8WO9m5lCN-WueErzbsa1w4ik3WlOwDEUT3H2dNyic3w8gEt8ik8ZSIqgP306DRjHazBksj2RP_hoH3x9YRLtGHOTqtz3_0xHQyAddtTeXCI6wi6Ft7EcDr2M6iXmdnqrtWPPvJXVak-GdxZ5Viot-s"/>
+<div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label text-[10px] tracking-widest uppercase font-bold">Sponsored</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<span class="text-xs font-label uppercase tracking-wider text-on-surface-variant">10 Days • Hybrid</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary mb-3">Website Design</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-1">
+                            Build professional websites using modern no-code and low-code platforms for any industry.
+                        </p>
+<div class="pt-6 border-t border-surface-variant">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-outline">Fee</p>
+<p class="text-lg font-bold text-primary line-through opacity-50">K1750</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label uppercase tracking-widest text-secondary font-bold">Current Status</p>
+<p class="text-lg font-bold text-secondary">FULLY SPONSORED</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity">Apply</button>
+<a class="text-primary font-bold text-sm hover:underline decoration-2 underline-offset-4" href="#">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Graphic Design -->
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-transform hover:-translate-y-2 duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Hand holding a digital stylus on a high precision graphics tablet with colorful design software on screen in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcW2LIGgYyoHPXzdVg0NWkOdJY6e31TJ_BFl6eujqJc4j4XyKdYZnxslADJMCYrZ2Hgf25zAg-OxrYn3cd3iwcZG39SU5fZ6u4Bnu-ucQJVel2keG3QFqtoCDDdVSp6eEM27HortWaBZyleRc7Iqx8bVbEReeGKlXN5s1H-VNKAyf67ICWeJAAW1ByX2Cx1oRZtXnsh15XjuhsD08XosZ2cfFTBxhueCruzDfXa3OOyOsGb5DwJJnDZALnKZG8f4JPYG_sYeRNJBI"/>
+<div class="absolute top-4 right-4 bg-secondary text-on-secondary px-3 py-1 rounded-full font-label text-[10px] tracking-widest uppercase font-bold">Sponsored</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<span class="text-xs font-label uppercase tracking-wider text-on-surface-variant">10 Days • Hybrid</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary mb-3">Graphic Design</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 flex-1">
+                            Visual storytelling for brands. Learn layout, typography, and professional design software mastery.
+                        </p>
+<div class="pt-6 border-t border-surface-variant">
+<div class="flex items-center justify-between mb-6">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-outline">Fee</p>
+<p class="text-lg font-bold text-primary line-through opacity-50">K1750</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label uppercase tracking-widest text-secondary font-bold">Current Status</p>
+<p class="text-lg font-bold text-secondary">FULLY SPONSORED</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity">Apply</button>
+<a class="text-primary font-bold text-sm hover:underline decoration-2 underline-offset-4" href="#">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Style placeholder/CTA for Custom Training -->
+<div class="bg-primary text-on-primary p-8 rounded-xl flex flex-col justify-center items-center text-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-50"></div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-on-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-3xl">corporate_fare</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Custom Training for Organizations</h3>
+<p class="text-on-primary-container text-sm leading-relaxed mb-8">
+                            Need a bespoke curriculum for your team? We design specialized digital literacy programs for companies of all sizes.
+                        </p>
+<button class="w-full py-4 border-2 border-on-primary/30 rounded-md font-bold hover:bg-on-primary hover:text-primary transition-all">Enquire Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-24 px-6 bg-surface">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+<p class="text-on-surface-variant">Everything you need to know about our learning model.</p>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low rounded-lg p-6 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-primary">How does the 10-day hybrid model work?</h4>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+<div class="mt-4 text-on-surface-variant text-sm leading-relaxed">
+                            The hybrid model combines 4 intensive in-person workshop days with 6 days of remote, mentor-guided project work. This allows for high-impact learning while providing the flexibility needed for working professionals.
+                        </div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-primary">What does "Fully Sponsored" mean?</h4>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-primary">Will I receive a certification upon completion?</h4>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-primary">What are the prerequisites for these courses?</h4>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="relative px-6 py-24 overflow-hidden">
+<div class="max-w-7xl mx-auto relative z-10 bg-primary-container rounded-3xl p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-xl">
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-white mb-6">Not sure where to start?</h2>
+<p class="text-on-primary-container text-lg leading-relaxed mb-0">
+                        Speak with our learning advisors to find the path that aligns with your career goals. Get a free consultation today.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+<button class="px-8 py-4 bg-secondary text-white font-bold rounded-md shadow-xl hover:scale-105 transition-transform">Book a Call</button>
+<button class="px-8 py-4 bg-white/10 text-white font-bold rounded-md backdrop-blur-md hover:bg-white/20 transition-all">Chat on WhatsApp</button>
+</div>
+<!-- Decorative element -->
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-tertiary opacity-10 blur-3xl rounded-full"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 bg-slate-50">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-8 py-12 max-w-7xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="text-lg font-black text-blue-800 mb-6">Digital Future Labs</div>
+<p class="text-slate-500 text-sm leading-relaxed">Building the digital bridge for Zambia's next generation of innovators and entrepreneurs.</p>
+</div>
+<div>
+<h5 class="font-headline font-semibold text-primary mb-6">Learning</h5>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-500 underline decoration-blue-500 underline-offset-4 text-sm" href="#">Full Catalog</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 underline decoration-blue-500 underline-offset-4 text-sm" href="#">Scholarships</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 underline decoration-blue-500 underline-offset-4 text-sm" href="#">Alumni Stories</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-headline font-semibold text-primary mb-6">Company</h5>
+<ul class="space-y-4">
+<li><a class="text-slate-500 hover:text-blue-500 text-sm" href="#">About Us</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 text-sm" href="#">Contact Us</a></li>
+<li><a class="text-slate-500 hover:text-blue-500 text-sm" href="#">Support</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-headline font-semibold text-primary mb-6">Newsletter</h5>
+<div class="flex flex-col gap-4">
+<input class="bg-surface px-4 py-2.5 rounded-md border-none focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Enter your email" type="email"/>
+<button class="bg-primary text-on-primary py-2.5 rounded-md text-sm font-bold">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 py-6 border-t border-slate-200/50 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 text-sm text-center">© 2024 Digital Future Labs. Built for Zambia's Digital Frontier.</p>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-blue-500 text-xs uppercase tracking-widest font-bold" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-blue-500 text-xs uppercase tracking-widest font-bold" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

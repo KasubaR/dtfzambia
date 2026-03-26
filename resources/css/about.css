@@ -1,0 +1,66 @@
+.about-hero {
+    background-color: var(--color-surface-low);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(172, 193, 55, .13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(16, 76, 157, .35) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: .9;
+}
+
+.about-hero-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.about-section {
+    background-color: var(--color-surface);
+}
+
+.about-platform {
+    background-color: var(--color-surface-low);
+}
+
+.about-side-card {
+    padding: 2rem;
+}
+
+.about-badge-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.about-steps .about-step-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
