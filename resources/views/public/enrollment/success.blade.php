@@ -10,6 +10,7 @@
     .success-hero {
         background: linear-gradient(135deg, var(--color-green) 0%, var(--color-green-dark) 100%);
         padding: 3.5rem 2rem;
+        padding-top: calc(3.5rem + 70px);
         text-align: center;
         color: var(--color-white);
         animation: fadeInDown 0.5s ease;
