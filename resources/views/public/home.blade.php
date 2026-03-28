@@ -204,8 +204,8 @@
             {{-- Stats --}}
             <div class="grid grid-cols-2 gap-6" data-animate>
                 @foreach ([
-                    ['500+', 'Students Trained',  'var(--color-green)'],
-                    ['12+',  'Active Modules',     '#b1c5ff'],
+                    [$studentCount . '+',  'Students Trained',  'var(--color-green)'],
+                    ['12',   'Active Modules',     '#b1c5ff'],
                     ['98%',  'Satisfaction Rate',  'var(--color-green)'],
                     ['24/7', 'Mentorship Access',  'white'],
                 ] as [$num, $label, $color])
@@ -377,7 +377,7 @@
                 <div class="space-y-7 mb-10">
                     @foreach ([
                         ['mail',        'Email Us',  'info@dflzambia.com', 'mailto:info@dflzambia.com'],
-                        ['call',        'Phone',     '+260 970 000 000',             'tel:+260970000000'],
+                        ['call',        'Phone',     '+260 960 320 384',             'tel:+260960320384'],
                         ['location_on', 'Location',  'Innovation Hub, Longacres, Lusaka', '#'],
                     ] as [$icon, $title, $value, $href])
                     <div class="flex items-start gap-4">

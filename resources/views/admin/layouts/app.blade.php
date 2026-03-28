@@ -119,5 +119,119 @@
 
   @stack('scripts')
 
+  {{-- ── Auto-logout after 15 minutes of inactivity ── --}}
+  <style>
+    #inactivity-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+    }
+    #inactivity-overlay.show { display: flex; }
+    #inactivity-box {
+      background: var(--surface, #fff);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    #inactivity-box h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text, #111);
+    }
+    #inactivity-box p {
+      font-size: 0.875rem;
+      color: var(--text-muted, #666);
+      margin: 0 0 1.25rem;
+    }
+    #inactivity-countdown {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent, #e53e3e);
+      margin-bottom: 1.25rem;
+    }
+    #inactivity-stay {
+      padding: 0.65rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent, #3b82f6);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+  </style>
+
+  <div id="inactivity-overlay" role="dialog" aria-modal="true" aria-labelledby="inactivity-title">
+    <div id="inactivity-box">
+      <h3 id="inactivity-title">Session Expiring</h3>
+      <p>You've been inactive. You'll be logged out in:</p>
+      <div id="inactivity-countdown">60</div>
+      <button id="inactivity-stay">Stay Logged In</button>
+    </div>
+  </div>
+
+  <form id="inactivity-logout-form" method="POST" action="{{ route('admin.logout') }}" style="display:none">
+    @csrf
+  </form>
+
+  <script>
+    (function () {
+      const IDLE_TIMEOUT  = 15 * 60 * 1000; // 15 minutes
+      const WARN_BEFORE   = 60 * 1000;       // warn 60 s before logout
+      const overlay       = document.getElementById('inactivity-overlay');
+      const countdownEl   = document.getElementById('inactivity-countdown');
+      const stayBtn       = document.getElementById('inactivity-stay');
+      const logoutForm    = document.getElementById('inactivity-logout-form');
+
+      let idleTimer, warnTimer, countdownInterval;
+
+      function logout() {
+        logoutForm.submit();
+      }
+
+      function startCountdown() {
+        let seconds = Math.round(WARN_BEFORE / 1000);
+        countdownEl.textContent = seconds;
+        overlay.classList.add('show');
+        countdownInterval = setInterval(function () {
+          seconds--;
+          countdownEl.textContent = seconds;
+          if (seconds <= 0) {
+            clearInterval(countdownInterval);
+            logout();
+          }
+        }, 1000);
+      }
+
+      function resetTimers() {
+        clearTimeout(idleTimer);
+        clearTimeout(warnTimer);
+        clearInterval(countdownInterval);
+        overlay.classList.remove('show');
+
+        warnTimer = setTimeout(startCountdown, IDLE_TIMEOUT - WARN_BEFORE);
+        idleTimer = setTimeout(logout, IDLE_TIMEOUT);
+      }
+
+      // Reset on any user activity
+      ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(function (evt) {
+        document.addEventListener(evt, resetTimers, { passive: true });
+      });
+
+      stayBtn.addEventListener('click', resetTimers);
+
+      // Kick off
+      resetTimers();
+    })();
+  </script>
+
 </body>
 </html>

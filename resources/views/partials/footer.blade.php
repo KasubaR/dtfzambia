@@ -45,17 +45,17 @@
                     style="color: var(--color-primary);">Follow Us</h5>
                 <div class="flex flex-wrap gap-3">
 
-                    {{-- Twitter / X --}}
-                    <a href="#" aria-label="Twitter / X"
+                    {{-- LinkedIn --}}
+                    <a href="https://www.linkedin.com/company/digitalfuturelab/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
                        class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
                        style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
-                       onmouseover="this.style.backgroundColor='#000';this.style.color='white';this.style.borderColor='#000';"
+                       onmouseover="this.style.backgroundColor='#0a66c2';this.style.color='white';this.style.borderColor='#0a66c2';"
                        onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';this.style.borderColor='var(--color-border)';">
-                        <i class="fa-brands fa-x-twitter" style="font-size:15px"></i>
+                        <i class="fa-brands fa-linkedin-in" style="font-size:15px"></i>
                     </a>
 
                     {{-- Facebook --}}
-                    <a href="#" aria-label="Facebook"
+                    <a href="https://www.facebook.com/share/17NTber2QY/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
                        class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
                        style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
                        onmouseover="this.style.backgroundColor='#1877f2';this.style.color='white';this.style.borderColor='#1877f2';"
@@ -64,12 +64,27 @@
                     </a>
 
                     {{-- Instagram --}}
-                    <a href="#" aria-label="Instagram"
+                    <div class="relative inline-block" id="ig-wrapper">
+                        <a href="#" aria-label="Instagram"
+                           class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+                           style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
+                           onmouseover="this.style.backgroundColor='#e1306c';this.style.color='white';this.style.borderColor='#e1306c';"
+                           onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';this.style.borderColor='var(--color-border)';"
+                           onclick="event.preventDefault();var t=document.getElementById('ig-tooltip');t.style.opacity='1';t.style.pointerEvents='auto';clearTimeout(window._igTimer);window._igTimer=setTimeout(function(){t.style.opacity='0';t.style.pointerEvents='none';},2000);">
+                            <i class="fa-brands fa-instagram" style="font-size:15px"></i>
+                        </a>
+                        <span id="ig-tooltip"
+                              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs rounded whitespace-nowrap transition-opacity duration-200"
+                              style="background:#333;color:#fff;opacity:0;pointer-events:none;">Coming Soon</span>
+                    </div>
+
+                    {{-- TikTok --}}
+                    <a href="https://www.tiktok.com/@digitalfuturelab" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
                        class="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
                        style="background: white; color: var(--color-primary); border: 1px solid var(--color-border);"
-                       onmouseover="this.style.backgroundColor='#e1306c';this.style.color='white';this.style.borderColor='#e1306c';"
+                       onmouseover="this.style.backgroundColor='#010101';this.style.color='white';this.style.borderColor='#010101';"
                        onmouseout="this.style.backgroundColor='white';this.style.color='var(--color-primary)';this.style.borderColor='var(--color-border)';">
-                        <i class="fa-brands fa-instagram" style="font-size:15px"></i>
+                        <i class="fa-brands fa-tiktok" style="font-size:15px"></i>
                     </a>
 
                 </div>
@@ -101,12 +116,12 @@
                     <li class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-sm"
                               style="color: var(--color-green);">call</span>
-                        <a href="tel:+260970000000"
+                        <a href="tel:+260960320384"
                            class="text-sm transition-colors duration-200"
                            style="color: var(--color-text-muted);"
                            onmouseover="this.style.color='var(--color-primary)';"
                            onmouseout="this.style.color='var(--color-text-muted)';">
-                            +260 970 000 000
+                            +260 960 320 384
                         </a>
                     </li>
                 </ul>

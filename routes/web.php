@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Models\Course;
+use App\Models\Enrollment;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,8 @@ use App\Models\Course;
 
 Route::get('/', function () {
     $courses = Course::active()->get();
-    return view('public.home', compact('courses'));
+    $studentCount = Enrollment::whereIn('status', ['approved', 'partial'])->count();
+    return view('public.home', compact('courses', 'studentCount'));
 })->name('home');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
