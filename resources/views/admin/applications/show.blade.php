@@ -25,6 +25,14 @@
       @csrf
       @method('PATCH')
       @foreach($pendingCourses as $c)
+        <input type="hidden" name="courses[{{ $c->id }}]" value="waitlisted">
+      @endforeach
+      <button type="submit" class="btn btn-sm btn-waitlist">Waitlist all pending</button>
+    </form>
+    <form method="post" action="{{ route('admin.applications.update', $enrollment) }}" class="app-action-form">
+      @csrf
+      @method('PATCH')
+      @foreach($pendingCourses as $c)
         <input type="hidden" name="courses[{{ $c->id }}]" value="rejected">
       @endforeach
       <button type="submit" class="btn btn-sm btn-danger">Reject all pending</button>
@@ -92,6 +100,12 @@
                     @method('PATCH')
                     <input type="hidden" name="courses[{{ $course->id }}]" value="accepted">
                     <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                  </form>
+                  <form method="post" action="{{ route('admin.applications.update', $enrollment) }}" class="app-action-form">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="courses[{{ $course->id }}]" value="waitlisted">
+                    <button type="submit" class="btn btn-sm btn-waitlist">Waitlist</button>
                   </form>
                   <form method="post" action="{{ route('admin.applications.update', $enrollment) }}" class="app-action-form">
                     @csrf

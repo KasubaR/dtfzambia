@@ -61,9 +61,11 @@ class ApplicationsController extends Controller
                 continue;
             }
 
-            $newStatus = $decision === 'accepted'
-                ? Enrollment::PIVOT_ACCEPTED
-                : Enrollment::PIVOT_REJECTED;
+            $newStatus = match ($decision) {
+                'accepted'   => Enrollment::PIVOT_ACCEPTED,
+                'waitlisted' => Enrollment::PIVOT_WAITLISTED,
+                default      => Enrollment::PIVOT_REJECTED,
+            };
 
             $enrollment->courses()->updateExistingPivot($courseId, [
                 'status' => $newStatus,
@@ -203,6 +205,57 @@ class ApplicationsController extends Controller
         return redirect()->route('admin.applications.index')->with('warning', $message);
     }
 
+    public function bulkWaitlist(Request $request)
+    {
+        $validated = $request->validate([
+            'ids'   => 'required|array|min:1',
+            'ids.*' => 'integer|exists:enrollments,id',
+        ]);
+
+        $count = 0;
+        $skipped = 0;
+
+        foreach ($validated['ids'] as $id) {
+            $enrollment = Enrollment::with('courses')->find($id);
+            if (! $enrollment) {
+                continue;
+            }
+
+            $updated = 0;
+            foreach ($enrollment->courses as $course) {
+                if ($course->pivot->status !== Enrollment::PIVOT_PENDING) {
+                    $skipped++;
+                    continue;
+                }
+                $enrollment->courses()->updateExistingPivot($course->id, [
+                    'status'      => Enrollment::PIVOT_WAITLISTED,
+                    'reviewed_at' => now(),
+                ]);
+                $updated++;
+            }
+
+            if ($updated > 0) {
+                $enrollment->refresh()->load('courses');
+                $enrollment->status = $enrollment->rollupStatus();
+                $enrollment->save();
+                $this->maybeSendDecisionEmail($enrollment);
+                $count++;
+            }
+        }
+
+        if ($count === 0) {
+            return redirect()->route('admin.applications.index')
+                ->with('warning', 'No changes applied — selected application(s) were already decided.');
+        }
+
+        $message = "Added {$count} application(s) to the waiting list.";
+        if ($skipped > 0) {
+            $message .= " {$skipped} course decision(s) were already set and skipped.";
+        }
+
+        return redirect()->route('admin.applications.index')->with('success', $message);
+    }
+
     public function bulkDestroy(Request $request)
     {
         $validated = $request->validate([
@@ -242,9 +295,9 @@ class ApplicationsController extends Controller
                     ]);
                 }
 
-                if (! is_string($decision) || ! in_array($decision, ['accepted', 'rejected'], true)) {
+                if (! is_string($decision) || ! in_array($decision, ['accepted', 'rejected', 'waitlisted'], true)) {
                     throw ValidationException::withMessages([
-                        'courses' => 'Each decision must be "accepted" or "rejected".',
+                        'courses' => 'Each decision must be "accepted", "rejected", or "waitlisted".',
                     ]);
                 }
 
@@ -263,7 +316,7 @@ class ApplicationsController extends Controller
         if ($request->filled('course_id')) {
             $validated = $request->validate([
                 'course_id' => 'required|exists:courses,id',
-                'decision' => 'required|in:accept,reject',
+                'decision'  => 'required|in:accept,reject,waitlist',
             ]);
 
             $courseId = (int) $validated['course_id'];
@@ -272,7 +325,11 @@ class ApplicationsController extends Controller
                 abort(404);
             }
 
-            $decision = $validated['decision'] === 'accept' ? 'accepted' : 'rejected';
+            $decision = match ($validated['decision']) {
+                'accept'    => 'accepted',
+                'waitlist'  => 'waitlisted',
+                default     => 'rejected',
+            };
 
             return [$courseId => $decision];
         }

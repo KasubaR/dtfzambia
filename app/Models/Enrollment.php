@@ -12,11 +12,13 @@ class Enrollment extends Model
     use HasFactory;
 
     /** Pivot `course_enrollment.status` values */
-    public const PIVOT_PENDING = 'pending';
+    public const PIVOT_PENDING    = 'pending';
 
-    public const PIVOT_ACCEPTED = 'accepted';
+    public const PIVOT_ACCEPTED   = 'accepted';
 
-    public const PIVOT_REJECTED = 'rejected';
+    public const PIVOT_REJECTED   = 'rejected';
+
+    public const PIVOT_WAITLISTED = 'waitlisted';
 
     protected $fillable = [
         'full_name',
@@ -83,6 +85,15 @@ class Enrollment extends Model
     }
 
     /**
+     * Whether the enrollment is fully decided (no pending pivots).
+     * Alias kept for readability.
+     */
+    public function isFullyDecided(): bool
+    {
+        return $this->allCoursesDecided();
+    }
+
+    /**
      * Derive `enrollments.status` from pivot rows: pending | approved | rejected | partial.
      */
     public function rollupStatus(): string
@@ -101,15 +112,19 @@ class Enrollment extends Model
             return 'pending';
         }
 
-        $total = $courses->count();
-        $accepted = $statuses->filter(fn (string $s) => $s === self::PIVOT_ACCEPTED)->count();
-        $rejected = $statuses->filter(fn (string $s) => $s === self::PIVOT_REJECTED)->count();
+        $total      = $courses->count();
+        $accepted   = $statuses->filter(fn (string $s) => $s === self::PIVOT_ACCEPTED)->count();
+        $rejected   = $statuses->filter(fn (string $s) => $s === self::PIVOT_REJECTED)->count();
+        $waitlisted = $statuses->filter(fn (string $s) => $s === self::PIVOT_WAITLISTED)->count();
 
         if ($accepted === $total) {
             return 'approved';
         }
         if ($rejected === $total) {
             return 'rejected';
+        }
+        if ($waitlisted === $total) {
+            return 'waitlisted';
         }
 
         return 'partial';

@@ -12,7 +12,7 @@ class EnrollmentsController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab', 'accepted');
-        if (! in_array($tab, ['accepted', 'rejected'], true)) {
+        if (! in_array($tab, ['accepted', 'waitlisted', 'rejected'], true)) {
             $tab = 'accepted';
         }
 
@@ -20,6 +20,8 @@ class EnrollmentsController extends Controller
 
         if ($tab === 'accepted') {
             $query->whereIn('status', ['approved', 'partial']);
+        } elseif ($tab === 'waitlisted') {
+            $query->where('status', 'waitlisted');
         } else {
             $query->where('status', 'rejected');
         }

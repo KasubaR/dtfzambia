@@ -28,6 +28,12 @@
       <button type="submit" class="btn btn-sm btn-success">Approve Selected</button>
     </form>
 
+    <form method="POST" action="{{ route('admin.applications.bulk-waitlist') }}" id="formBulkWaitlist" class="bulk-form">
+      @csrf
+      <div id="waitlistIds"></div>
+      <button type="submit" class="btn btn-sm btn-waitlist">Waitlist Selected</button>
+    </form>
+
     <form method="POST" action="{{ route('admin.applications.bulk-reject') }}" id="formBulkReject" class="bulk-form">
       @csrf
       <div id="rejectIds"></div>
@@ -124,9 +130,10 @@
   const countEl   = document.getElementById('appsBulkCount');
   const selectAll = document.getElementById('selectAllApps');
   const idContainers = {
-    approve: document.getElementById('approveIds'),
-    reject:  document.getElementById('rejectIds'),
-    destroy: document.getElementById('destroyIds'),
+    approve:  document.getElementById('approveIds'),
+    waitlist: document.getElementById('waitlistIds'),
+    reject:   document.getElementById('rejectIds'),
+    destroy:  document.getElementById('destroyIds'),
   };
 
   function syncBulkBar() {
@@ -167,6 +174,11 @@
   document.getElementById('formBulkApprove').addEventListener('submit', function (e) {
     e.preventDefault();
     if (confirm('Approve ' + selected.size + ' application(s)?')) this.submit();
+  });
+
+  document.getElementById('formBulkWaitlist').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (confirm('Add ' + selected.size + ' application(s) to the waiting list?')) this.submit();
   });
 
   document.getElementById('formBulkReject').addEventListener('submit', function (e) {

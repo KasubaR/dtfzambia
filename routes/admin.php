@@ -47,9 +47,10 @@ Route::prefix('admin')
          * PATCH body: courses[course_id]=accepted|rejected (and/or legacy course_id + decision).
          */
         Route::get('applications', [ApplicationsController::class, 'index'])->name('applications.index');
-        Route::post('applications/bulk-approve',  [ApplicationsController::class, 'bulkApprove'])->name('applications.bulk-approve');
-        Route::post('applications/bulk-reject',   [ApplicationsController::class, 'bulkReject'])->name('applications.bulk-reject');
-        Route::delete('applications/bulk-destroy',[ApplicationsController::class, 'bulkDestroy'])->name('applications.bulk-destroy');
+        Route::post('applications/bulk-approve',   [ApplicationsController::class, 'bulkApprove'])->name('applications.bulk-approve');
+        Route::post('applications/bulk-reject',    [ApplicationsController::class, 'bulkReject'])->name('applications.bulk-reject');
+        Route::post('applications/bulk-waitlist',  [ApplicationsController::class, 'bulkWaitlist'])->name('applications.bulk-waitlist');
+        Route::delete('applications/bulk-destroy', [ApplicationsController::class, 'bulkDestroy'])->name('applications.bulk-destroy');
         Route::get('applications/{enrollment}', [ApplicationsController::class, 'show'])->name('applications.show');
         Route::patch('applications/{enrollment}', [ApplicationsController::class, 'update'])->name('applications.update');
 

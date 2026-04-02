@@ -413,11 +413,12 @@ table.admin-table {
   background: currentColor;
   opacity: .8;
 }
-.badge-pending  { background: rgba(217,119,6,.1);    color: var(--warn);   }
-.badge-approved { background: rgba(172,193,55,.12);  color: #6a7a20;       }
-.badge-rejected { background: rgba(220,38,38,.1);    color: var(--danger); }
-.badge-partial  { background: rgba(16,76,157,.08);   color: var(--accent); }
-.badge-active   { background: rgba(16,76,157,.08);   color: var(--accent); }
+.badge-pending    { background: rgba(217,119,6,.1);    color: var(--warn);   }
+.badge-approved   { background: rgba(172,193,55,.12);  color: #6a7a20;       }
+.badge-rejected   { background: rgba(220,38,38,.1);    color: var(--danger); }
+.badge-partial    { background: rgba(16,76,157,.08);   color: var(--accent); }
+.badge-active     { background: rgba(16,76,157,.08);   color: var(--accent); }
+.badge-waitlisted { background: rgba(139,92,246,.1);   color: #6d28d9;       }
 
 /* Applications — validation (PATCH courses payload) */
 .app-validation-errors {
@@ -539,6 +540,13 @@ a.page-btn {
   border-color: rgba(172,193,55,.35);
 }
 .btn-success:hover { background: rgba(172,193,55,.22); border-color: var(--green); }
+
+.btn-waitlist {
+  background: rgba(139,92,246,.1);
+  color: #6d28d9;
+  border-color: rgba(139,92,246,.3);
+}
+.btn-waitlist:hover { background: rgba(139,92,246,.2); border-color: #6d28d9; }
 
 .btn-sm  { padding: 5px 11px; font-size: .78rem; }
 .btn-sm svg { width: 13px; height: 13px; }

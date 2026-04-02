@@ -91,10 +91,11 @@
       letter-spacing: .05em;
       text-transform: uppercase;
     }
-    .badge-pending  { background: #fff3cd; color: #856404; }
-    .badge-approved { background: #d1fae5; color: #065f46; }
-    .badge-partial  { background: #dbeafe; color: #1e40af; }
-    .badge-rejected { background: #fee2e2; color: #991b1b; }
+    .badge-pending    { background: #fff3cd; color: #856404; }
+    .badge-approved   { background: #d1fae5; color: #065f46; }
+    .badge-partial    { background: #dbeafe; color: #1e40af; }
+    .badge-rejected   { background: #fee2e2; color: #991b1b; }
+    .badge-waitlisted { background: #ede9fe; color: #6d28d9; }
 
     /* ── Controls (hidden on print) ── */
     .print-controls {
@@ -159,12 +160,16 @@
       <div class="report-title">
         @if($courseLabel)
           {{ $courseLabel }}
+        @elseif($isWaitlist)
+          Waiting List Report
         @else
           Enrollment Report
         @endif
       </div>
       @if($courseLabel)
-        <div style="font-size:12px;color:#555;margin-top:2px">Accepted Students Report</div>
+        <div style="font-size:12px;color:#555;margin-top:2px">
+          {{ $isWaitlist ? 'Waiting List Report' : 'Accepted Students Report' }}
+        </div>
       @endif
       <div class="report-meta">
         Generated {{ now()->format('d M Y, H:i') }}

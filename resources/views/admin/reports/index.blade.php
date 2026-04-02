@@ -37,6 +37,17 @@
     <div class="stat-label">Accepted</div>
   </div>
   <div class="stat-card animate-in delay-4" style="padding:16px">
+    <div class="stat-icon purple" style="width:32px;height:32px;margin-bottom:10px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+    </div>
+    <div class="stat-value" style="font-size:1.5rem" data-count="{{ $summary['waitlisted'] }}">0</div>
+    <div class="stat-label">Waiting List</div>
+  </div>
+  <div class="stat-card animate-in delay-4" style="padding:16px">
     <div class="stat-icon red" style="width:32px;height:32px;margin-bottom:10px">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="10"/>
@@ -74,6 +85,33 @@
       <a href="{{ route('admin.reports.export', ['course_id' => $course->id]) }}"
          target="_blank"
          class="btn btn-outline btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
+          <polyline points="6 9 6 2 18 2 18 9"/>
+          <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        {{ $course->title }}
+      </a>
+    @endforeach
+  </div>
+</div>
+
+{{-- ── Print Waiting List by Course ────────────────────────── --}}
+<div class="panel animate-in delay-1" style="margin-bottom:22px">
+  <div class="panel-header">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         style="width:17px;height:17px;color:#6d28d9">
+      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+    </svg>
+    <span class="panel-title">Print Waiting List by Course</span>
+  </div>
+  <div style="padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px">
+    @foreach($courses as $course)
+      <a href="{{ route('admin.reports.export', ['course_id' => $course->id, 'status' => 'waitlisted']) }}"
+         target="_blank"
+         class="btn btn-sm" style="background:rgba(139,92,246,.1);color:#6d28d9;border-color:rgba(139,92,246,.3)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
           <polyline points="6 9 6 2 18 2 18 9"/>
           <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
@@ -135,10 +173,11 @@
                     letter-spacing:.08em;color:var(--text-faint)">Status</label>
       <select name="status" class="filter-select">
         <option value="">All Statuses</option>
-        <option value="pending"  {{ request('status') === 'pending'  ? 'selected' : '' }}>Pending</option>
-        <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
-        <option value="partial"  {{ request('status') === 'partial'  ? 'selected' : '' }}>Partial</option>
-        <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
+        <option value="pending"    {{ request('status') === 'pending'    ? 'selected' : '' }}>Pending</option>
+        <option value="approved"   {{ request('status') === 'approved'   ? 'selected' : '' }}>Approved</option>
+        <option value="partial"    {{ request('status') === 'partial'    ? 'selected' : '' }}>Partial</option>
+        <option value="waitlisted" {{ request('status') === 'waitlisted' ? 'selected' : '' }}>Waiting List</option>
+        <option value="rejected"   {{ request('status') === 'rejected'   ? 'selected' : '' }}>Rejected</option>
       </select>
     </div>
 

@@ -26,6 +26,8 @@
   <div class="filters-bar">
     <a href="{{ route('admin.enrollments.index', ['tab' => 'accepted']) }}"
        class="btn btn-sm {{ $tab === 'accepted' ? 'btn-primary' : 'btn-outline' }}">Accepted</a>
+    <a href="{{ route('admin.enrollments.index', ['tab' => 'waitlisted']) }}"
+       class="btn btn-sm {{ $tab === 'waitlisted' ? 'btn-primary' : 'btn-outline' }}">Waiting List</a>
     <a href="{{ route('admin.enrollments.index', ['tab' => 'rejected']) }}"
        class="btn btn-sm {{ $tab === 'rejected' ? 'btn-primary' : 'btn-outline' }}">Rejected</a>
   </div>
@@ -125,9 +127,12 @@
         @empty
           <tr>
             <td colspan="9">
+              @php
+                $emptyLabel = ['accepted' => 'accepted', 'waitlisted' => 'on the waiting list', 'rejected' => 'rejected'][$tab] ?? $tab;
+              @endphp
               <div class="empty-state">
-                <h3>No {{ $tab }} enrollments</h3>
-                <p>No students have been {{ $tab }} yet.</p>
+                <h3>No enrollments</h3>
+                <p>No students have been {{ $emptyLabel }} yet.</p>
               </div>
             </td>
           </tr>

@@ -22,14 +22,24 @@ class EnrollmentController extends Controller
 
     public function store(Request $request)
     {
+        // Enrollments older than 2 months with a terminal status (rejected/waitlisted)
+        // are excluded from uniqueness checks so applicants can re-apply.
+        $twoMonthsAgo = now()->subMonths(2);
+
+        $activeUnique = fn (string $col) => Rule::unique('enrollments', $col)
+            ->where(function ($query) use ($twoMonthsAgo) {
+                $query->where('status', '!=', 'pending_verification')
+                      ->where(function ($q) use ($twoMonthsAgo) {
+                          $q->whereNotIn('status', ['rejected', 'waitlisted'])
+                            ->orWhere('created_at', '>=', $twoMonthsAgo);
+                      });
+            });
+
         $validated = $request->validate([
             'full_name'         => 'required|string|max:255',
-            'email'             => ['required', 'email', 'max:255',
-                                    Rule::unique('enrollments', 'email')->whereNot('status', 'pending_verification')],
-            'phone'             => ['required', 'string', 'max:20',
-                                    Rule::unique('enrollments', 'phone')->whereNot('status', 'pending_verification')],
-            'nrc'               => ['required', 'string', 'max:20',
-                                    Rule::unique('enrollments', 'nrc')->whereNot('status', 'pending_verification')],
+            'email'             => ['required', 'email', 'max:255', $activeUnique('email')],
+            'phone'             => ['required', 'string', 'max:20',  $activeUnique('phone')],
+            'nrc'               => ['required', 'string', 'max:20',  $activeUnique('nrc')],
             'age_range'         => 'required|in:18-24,25-34,35-44,45+',
             'location'          => 'required|string|max:255',
             'education_level'   => 'required|in:secondary,certificate,diploma,bachelor,master,other',
@@ -40,13 +50,28 @@ class EnrollmentController extends Controller
             'courses.*'         => 'exists:courses,id',
         ]);
 
-        // Remove any stale pending_verification records for the same identity
-        Enrollment::where('status', 'pending_verification')
-            ->where(function ($q) use ($validated) {
-                $q->where('email', $validated['email'])
-                  ->orWhere('phone', $validated['phone'])
-                  ->orWhere('nrc', $validated['nrc']);
-            })->delete();
+        // Remove stale pending_verification records and expired rejected/waitlisted records
+        // so the new enrollment can be attached cleanly.
+        Enrollment::where(function ($q) use ($validated, $twoMonthsAgo) {
+            $q->where(function ($inner) use ($validated) {
+                // Always clear unverified stale records
+                $inner->where('status', 'pending_verification')
+                      ->where(function ($id) use ($validated) {
+                          $id->where('email', $validated['email'])
+                             ->orWhere('phone', $validated['phone'])
+                             ->orWhere('nrc', $validated['nrc']);
+                      });
+            })->orWhere(function ($inner) use ($validated, $twoMonthsAgo) {
+                // Clear expired rejected/waitlisted records (> 2 months old)
+                $inner->whereIn('status', ['rejected', 'waitlisted'])
+                      ->where('created_at', '<', $twoMonthsAgo)
+                      ->where(function ($id) use ($validated) {
+                          $id->where('email', $validated['email'])
+                             ->orWhere('phone', $validated['phone'])
+                             ->orWhere('nrc', $validated['nrc']);
+                      });
+            });
+        })->delete();
 
         $courseIds   = array_values(array_unique($validated['courses']));
         $totalPrice  = $this->calculatePrice(count($courseIds));

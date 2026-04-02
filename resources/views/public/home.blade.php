@@ -81,11 +81,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
             <div class="relative flex items-center justify-center" data-animate>
-                <div class="rounded-xl overflow-hidden flex items-center justify-center p-12"
-                     style="box-shadow: var(--shadow-lg); background: var(--color-surface-low); width:100%">
-                    <img src="{{ asset('images/DFL-Logo-Files-02.svg') }}"
+                <div class="rounded-xl overflow-hidden" style="box-shadow: var(--shadow-lg); width:100%">
+                    <img src="{{ asset('images/DFL Socials Setup_Web Pic.png') }}"
                          alt="Digital Future Labs"
-                         class="w-full max-w-xs h-auto" />
+                         class="w-full h-auto object-cover" />
                 </div>
             </div>
 
