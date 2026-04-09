@@ -307,7 +307,11 @@
         <a href="{{ $records->previousPageUrl() }}" class="page-btn">‹</a>
       @endif
 
-      @foreach($records->getUrlRange(1, $records->lastPage()) as $page => $url)
+      @php
+        $startPage = max(1, $records->currentPage() - 2);
+        $endPage = min($records->lastPage(), $records->currentPage() + 2);
+      @endphp
+      @foreach($records->getUrlRange($startPage, $endPage) as $page => $url)
         <a href="{{ $url }}" class="page-btn {{ $records->currentPage() === $page ? 'active' : '' }}">
           {{ $page }}
         </a>
@@ -332,31 +336,53 @@
 
 @push('scripts')
 <script>
+function closeCourseExportMenus() {
+  document.querySelectorAll('.course-export-dropdown').forEach((el) => {
+    el.setAttribute('hidden', 'hidden');
+    el.style.display = 'none';
+  });
+}
+
+function openCourseExportMenu(dropdown, trigger) {
+  const rect = trigger.getBoundingClientRect();
+  dropdown.style.display = 'grid';
+
+  const menuHeight = dropdown.offsetHeight || 120;
+  const openAbove = rect.top > menuHeight + 14;
+  const top = openAbove
+    ? Math.max(8, rect.top - menuHeight - 6)
+    : Math.min(window.innerHeight - menuHeight - 8, rect.bottom + 6);
+
+  dropdown.style.top = `${top}px`;
+  dropdown.style.left = `${Math.max(8, rect.left)}px`;
+  dropdown.style.bottom = 'auto';
+  dropdown.removeAttribute('hidden');
+}
+
 document.querySelectorAll('.course-export-trigger').forEach((trigger) => {
   trigger.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     const menu = event.currentTarget.closest('.course-export-menu');
     const dropdown = menu?.querySelector('.course-export-dropdown');
     const isHidden = dropdown?.hasAttribute('hidden');
 
-    document.querySelectorAll('.course-export-dropdown').forEach((el) => {
-      el.setAttribute('hidden', 'hidden');
-      el.style.display = 'none';
-    });
+    closeCourseExportMenus();
 
     if (dropdown && isHidden) {
-      dropdown.removeAttribute('hidden');
-      dropdown.style.display = 'grid';
+      openCourseExportMenu(dropdown, event.currentTarget);
     }
   });
 });
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('.course-export-menu')) {
-    document.querySelectorAll('.course-export-dropdown').forEach((el) => {
-      el.setAttribute('hidden', 'hidden');
-      el.style.display = 'none';
-    });
+    closeCourseExportMenus();
   }
 });
+
+window.addEventListener('resize', closeCourseExportMenus);
+window.addEventListener('scroll', closeCourseExportMenus, true);
 </script>
 @endpush

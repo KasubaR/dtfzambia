@@ -605,7 +605,6 @@ a.page-btn {
 
 .course-export-menu {
   position: relative;
-  z-index: 2;
 }
 
 .course-export-caret {
@@ -615,8 +614,8 @@ a.page-btn {
 }
 
 .course-export-dropdown {
-  position: absolute;
-  bottom: calc(100% + 6px);
+  position: fixed;
+  top: 0;
   left: 0;
   min-width: 132px;
   border: 1px solid var(--border);
@@ -624,7 +623,7 @@ a.page-btn {
   background: var(--surface);
   box-shadow: var(--shadow);
   padding: 5px;
-  z-index: 40;
+  z-index: 1200;
   display: grid;
   gap: 4px;
 }
@@ -647,11 +646,6 @@ a.page-btn {
   color: var(--accent);
 }
 
-.panel.course-export-panel {
-  overflow: visible;
-  position: relative;
-  z-index: 20;
-}
 
 /* ══════════════════════════════════════════════════════════════
    PAGINATION
