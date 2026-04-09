@@ -148,7 +148,7 @@
     <span class="panel-title">Enrollment Report</span>
 
     {{-- Export buttons --}}
-    <div style="margin-left:auto;display:flex;gap:8px">
+    <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
       <a href="{{ route('admin.reports.export', array_merge(request()->query(), ['format' => 'excel'])) }}"
          target="_blank"
          class="btn btn-outline btn-sm">
@@ -301,7 +301,28 @@
 
   @if($records->hasPages())
     <div class="pagination">
-      {{ $records->links() }}
+      @if($records->onFirstPage())
+        <button class="page-btn" disabled style="opacity:.4">‹</button>
+      @else
+        <a href="{{ $records->previousPageUrl() }}" class="page-btn">‹</a>
+      @endif
+
+      @foreach($records->getUrlRange(1, $records->lastPage()) as $page => $url)
+        <a href="{{ $url }}" class="page-btn {{ $records->currentPage() === $page ? 'active' : '' }}">
+          {{ $page }}
+        </a>
+      @endforeach
+
+      @if($records->hasMorePages())
+        <a href="{{ $records->nextPageUrl() }}" class="page-btn">›</a>
+      @else
+        <button class="page-btn" disabled style="opacity:.4">›</button>
+      @endif
+
+      <div class="pagination-info">
+        Showing {{ $records->firstItem() }}–{{ $records->lastItem() }}
+        of {{ $records->total() }}
+      </div>
     </div>
   @endif
 
