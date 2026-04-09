@@ -595,6 +595,64 @@ a.page-btn {
 .filter-select { cursor: pointer; }
 .filter-input { min-width: 200px; }
 
+/* Course export menus (Reports page) */
+.course-export-list {
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.course-export-menu {
+  position: relative;
+  z-index: 2;
+}
+
+.course-export-caret {
+  font-size: .72rem;
+  opacity: .75;
+  margin-left: 2px;
+}
+
+.course-export-dropdown {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  min-width: 132px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 5px;
+  z-index: 40;
+  display: grid;
+  gap: 4px;
+}
+
+.course-export-dropdown[hidden] {
+  display: none !important;
+}
+
+.course-export-dropdown a {
+  display: block;
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.course-export-dropdown a:hover {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.panel.course-export-panel {
+  overflow: visible;
+  position: relative;
+  z-index: 20;
+}
+
 /* ══════════════════════════════════════════════════════════════
    PAGINATION
 ══════════════════════════════════════════════════════════════ */

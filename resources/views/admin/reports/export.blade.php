@@ -191,11 +191,8 @@
         <th>No</th>
         <th>Student</th>
         <th>Phone</th>
-        @if($courseLabel)
-          <th>Email</th>
-        @else
-          <th>Course(s)</th>
-        @endif
+        <th>Email</th>
+        <th>Course(s)</th>
         <th>NRC</th>
       </tr>
     </thead>
@@ -205,25 +202,19 @@
           <td style="color:#999">{{ $record->id }}</td>
           <td>
             {{ $record->full_name }}
-            @if(!$courseLabel)
-              <div class="sub">{{ $record->email }}</div>
-            @endif
           </td>
           <td>{{ $record->phone }}</td>
-          @if($courseLabel)
-            <td>{{ $record->email }}</td>
-          @else
-            <td>
-              @foreach($record->courses as $course)
-                {{ $course->title }}@if(!$loop->last), @endif
-              @endforeach
-            </td>
-          @endif
+          <td>{{ $record->email }}</td>
+          <td>
+            @foreach($record->courses as $course)
+              {{ $course->title }}@if(!$loop->last), @endif
+            @endforeach
+          </td>
           <td>{{ $record->nrc }}</td>
         </tr>
       @empty
         <tr>
-          <td colspan="5" style="text-align:center;padding:24px;color:#999">
+          <td colspan="6" style="text-align:center;padding:24px;color:#999">
             No records match the selected filters.
           </td>
         </tr>

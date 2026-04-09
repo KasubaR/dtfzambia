@@ -70,7 +70,7 @@
 </div>
 
 {{-- ── Print by Course ─────────────────────────────────────── --}}
-<div class="panel animate-in delay-1" style="margin-bottom:22px">
+<div class="panel course-export-panel animate-in delay-1" style="margin-bottom:22px">
   <div class="panel-header">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
          style="width:17px;height:17px;color:var(--accent)">
@@ -80,24 +80,30 @@
     </svg>
     <span class="panel-title">Print Students by Course</span>
   </div>
-  <div style="padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px">
+  <div class="course-export-list">
     @foreach($courses as $course)
-      <a href="{{ route('admin.reports.export', ['course_id' => $course->id]) }}"
-         target="_blank"
-         class="btn btn-outline btn-sm">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
-          <polyline points="6 9 6 2 18 2 18 9"/>
-          <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
-          <rect x="6" y="14" width="12" height="8"/>
-        </svg>
-        {{ $course->title }}
-      </a>
+      <div class="course-export-menu" data-course-id="{{ $course->id }}">
+        <button type="button" class="btn btn-outline btn-sm course-export-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          {{ $course->title }}
+          <span class="course-export-caret">▾</span>
+        </button>
+        <div class="course-export-dropdown" hidden style="display:none">
+          <a target="_blank" href="{{ route('admin.reports.export', ['course_id' => $course->id, 'format' => 'pdf']) }}">PDF</a>
+          <a target="_blank" href="{{ route('admin.reports.export', ['course_id' => $course->id, 'format' => 'word']) }}">Word</a>
+          <a target="_blank" href="{{ route('admin.reports.export', ['course_id' => $course->id, 'format' => 'excel']) }}">Excel</a>
+        </div>
+      </div>
     @endforeach
   </div>
 </div>
 
 {{-- ── Print Waiting List by Course ────────────────────────── --}}
-<div class="panel animate-in delay-1" style="margin-bottom:22px">
+<div class="panel course-export-panel animate-in delay-1" style="margin-bottom:22px">
   <div class="panel-header">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
          style="width:17px;height:17px;color:#6d28d9">
@@ -107,18 +113,24 @@
     </svg>
     <span class="panel-title">Print Waiting List by Course</span>
   </div>
-  <div style="padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px">
+  <div class="course-export-list">
     @foreach($courses as $course)
-      <a href="{{ route('admin.reports.export', ['course_id' => $course->id, 'status' => 'waitlisted']) }}"
-         target="_blank"
-         class="btn btn-sm" style="background:rgba(139,92,246,.1);color:#6d28d9;border-color:rgba(139,92,246,.3)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
-          <polyline points="6 9 6 2 18 2 18 9"/>
-          <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
-          <rect x="6" y="14" width="12" height="8"/>
-        </svg>
-        {{ $course->title }}
-      </a>
+      <div class="course-export-menu" data-course-id="{{ $course->id }}" data-status="waitlisted">
+        <button type="button" class="btn btn-sm btn-waitlist course-export-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          {{ $course->title }}
+          <span class="course-export-caret">▾</span>
+        </button>
+        <div class="course-export-dropdown" hidden style="display:none">
+          <a target="_blank" href="{{ route('admin.reports.export', ['course_id' => $course->id, 'status' => 'waitlisted', 'format' => 'pdf']) }}">PDF</a>
+          <a target="_blank" href="{{ route('admin.reports.export', ['course_id' => $course->id, 'status' => 'waitlisted', 'format' => 'word']) }}">Word</a>
+          <a target="_blank" href="{{ route('admin.reports.export', ['course_id' => $course->id, 'status' => 'waitlisted', 'format' => 'excel']) }}">Excel</a>
+        </div>
+      </div>
     @endforeach
   </div>
 </div>
@@ -135,9 +147,9 @@
     </svg>
     <span class="panel-title">Enrollment Report</span>
 
-    {{-- Export button --}}
+    {{-- Export buttons --}}
     <div style="margin-left:auto;display:flex;gap:8px">
-      <a href="{{ route('admin.reports.export', request()->query()) }}"
+      <a href="{{ route('admin.reports.export', array_merge(request()->query(), ['format' => 'excel'])) }}"
          target="_blank"
          class="btn btn-outline btn-sm">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -145,7 +157,27 @@
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
-        Export / Print
+        Export Excel
+      </a>
+      <a href="{{ route('admin.reports.export', array_merge(request()->query(), ['format' => 'word'])) }}"
+         target="_blank"
+         class="btn btn-outline btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export Word
+      </a>
+      <a href="{{ route('admin.reports.export', request()->query()) }}"
+         target="_blank"
+         class="btn btn-outline btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 6 2 18 2 18 9"/>
+          <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        Print
       </a>
     </div>
   </div>
@@ -224,6 +256,7 @@
           <th>#</th>
           <th>Student</th>
           <th>Phone</th>
+          <th>Email</th>
           <th>Location</th>
           <th>Course(s)</th>
           <th>Status</th>
@@ -236,9 +269,9 @@
             <td style="color:var(--text-muted);font-size:.78rem">{{ $record->id }}</td>
             <td>
               <div class="td-name">{{ $record->full_name }}</div>
-              <div class="td-sub">{{ $record->email }}</div>
             </td>
             <td>{{ $record->phone }}</td>
+            <td style="font-size:.82rem;color:var(--text-muted)">{{ $record->email }}</td>
             <td style="font-size:.82rem;color:var(--text-muted)">{{ $record->location }}</td>
             <td>
               @foreach($record->courses as $course)
@@ -254,7 +287,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="7">
+            <td colspan="8">
               <div class="empty-state">
                 <h3>No results</h3>
                 <p>Try adjusting your filters.</p>
@@ -275,3 +308,34 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+document.querySelectorAll('.course-export-trigger').forEach((trigger) => {
+  trigger.addEventListener('click', (event) => {
+    const menu = event.currentTarget.closest('.course-export-menu');
+    const dropdown = menu?.querySelector('.course-export-dropdown');
+    const isHidden = dropdown?.hasAttribute('hidden');
+
+    document.querySelectorAll('.course-export-dropdown').forEach((el) => {
+      el.setAttribute('hidden', 'hidden');
+      el.style.display = 'none';
+    });
+
+    if (dropdown && isHidden) {
+      dropdown.removeAttribute('hidden');
+      dropdown.style.display = 'grid';
+    }
+  });
+});
+
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.course-export-menu')) {
+    document.querySelectorAll('.course-export-dropdown').forEach((el) => {
+      el.setAttribute('hidden', 'hidden');
+      el.style.display = 'none';
+    });
+  }
+});
+</script>
+@endpush
