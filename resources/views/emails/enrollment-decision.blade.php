@@ -9,34 +9,35 @@
     <p>Hi {{ $enrollment->full_name }},</p>
 
     @if ($outcome === 'all_accepted')
-        <p><strong>Congratulations.</strong> We are pleased to inform you that you have been <strong>accepted</strong> for all programme(s) you applied for at Digital Future Labs.</p>
-        <p><strong>Accepted programme(s):</strong></p>
+        <p><strong>Congratulations.</strong></p>
+        <p>We are pleased to inform you that you have been <strong>accepted</strong> for the programme(s) you applied for at Digital Future Labs.</p>
+        <p><strong>Accepted Programme(s):</strong></p>
         <ul style="padding-left:20px;">
             @foreach ($acceptedCourses as $course)
                 <li>{{ $course->title }}</li>
             @endforeach
         </ul>
-        <p>We will follow up shortly with onboarding details and next steps.</p>
+        <p>For further information or inquiries, kindly call or text <strong>0960320384</strong> or email <a href="mailto:info@dflzambia.com">info@dflzambia.com</a>.</p>
+        <p>We look forward to having you on board.</p>
 
     @elseif ($outcome === 'all_rejected')
-        <p>Thank you for your interest in Digital Future Labs. After careful review, we are unable to offer you a place for the programme(s) you applied for in this cohort.</p>
-        <p><strong>Programme(s) not offered:</strong></p>
-        <ul style="padding-left:20px;">
-            @foreach ($rejectedCourses as $course)
-                <li>{{ $course->title }}</li>
-            @endforeach
-        </ul>
-        <p>We encourage you to <strong>register for our next cohort</strong> — applications reopen and your details will not be held against future applications. If you would like feedback on your application, you are welcome to reply to this email.</p>
+        <p>Thank you for applying to Digital Future Labs.</p>
+        <p>After careful consideration, we regret to inform you that your application was not successful for this cohort.</p>
+        <p>We sincerely appreciate your interest in our programmes and the time you took to apply. Due to the high number of applications received, we were unable to accommodate all qualified applicants.</p>
+        <p>We encourage you to stay connected with us for future opportunities and upcoming cohorts. To receive updates or learn more about future programmes, kindly call or text <strong>0960320384</strong> or email <a href="mailto:info@dflzambia.com">info@dflzambia.com</a>.</p>
+        <p>Thank you once again for your interest in Digital Future Labs, and we wish you all the best in your future endeavors.</p>
 
     @elseif ($outcome === 'all_waitlisted')
-        <p>Thank you for applying to Digital Future Labs. We are pleased to let you know that you have been <strong>added to the waiting list</strong> for the following programme(s):</p>
+        <p>Thank you for applying to Digital Future Labs.</p>
+        <p>We are pleased to let you know that you have been <strong>added to the waiting list</strong> for the following programme(s):</p>
         <ul style="padding-left:20px;">
             @foreach ($waitlistedCourses as $course)
                 <li>{{ $course->title }}</li>
             @endforeach
         </ul>
-        <p>Being on the waiting list means your application is under consideration. We will send you a follow-up email as soon as a place becomes available or when our next cohort opens. <strong>No action is required from you at this time.</strong></p>
-        <p>If you have any questions in the meantime, please reply to this email.</p>
+        <p>Being on the waiting list means your application is still under consideration. We will send you a follow-up email as soon as a place becomes available or when our next cohort opens. <strong>No action is required from you at this time.</strong></p>
+        <p>To find out more about future cohorts or upcoming opportunities, kindly call or text <strong>0960320384</strong> or email <a href="mailto:info@dflzambia.com">info@dflzambia.com</a>.</p>
+        <p>Thank you for your interest in Digital Future Labs, and we appreciate your patience.</p>
 
     @else
         <p>Thank you for your patience. We have completed our review of your application. Below is the outcome <strong>for each programme</strong> you selected.</p>
@@ -79,8 +80,8 @@
 
     <p style="margin-top: 24px; font-size: 14px; color: #5a5e72;">Reference: enrollment #{{ $enrollment->id }}</p>
 
-    <p style="margin-top: 16px; color: #5a5e72; font-size: 14px;">— Digital Future Labs<br>
-        <a href="mailto:info@dflzambia.com">info@dflzambia.com</a>
+    <p style="margin-top: 16px; color: #5a5e72; font-size: 14px;">Kind regards,<br>
+        <strong>Digital Future Labs</strong>
     </p>
 </body>
 </html>
