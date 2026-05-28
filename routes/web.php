@@ -17,7 +17,8 @@ use App\Models\Enrollment;
 Route::get('/', function () {
     $courses = Course::active()->get();
     $studentCount = Enrollment::whereIn('status', ['approved', 'partial'])->count();
-    return view('public.home', compact('courses', 'studentCount'));
+    $pricing = config('pricing');
+    return view('public.home', compact('courses', 'studentCount', 'pricing'));
 })->name('home');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

@@ -609,13 +609,15 @@
 @push('scripts')
 <script>
 /* ── Course selection state ─────────────────────────────────── */
-const PRICING = { 1: 1750, 2: 3000, 3: 4750 };
+const PRICING = @json($pricing['tiers']);
+const PER_ADDITIONAL = {{ $pricing['per_additional'] }};
+const MAX_TIER = Math.max(...Object.keys(PRICING).map(Number));
 let selectedIds = new Set();
 
 function getPrice(count) {
     if (count <= 0) return 0;
-    if (count <= 3) return PRICING[count] ?? PRICING[3] + (count - 3) * 1750;
-    return PRICING[3] + (count - 3) * 1750;
+    if (count <= MAX_TIER) return PRICING[count] ?? PRICING[MAX_TIER];
+    return PRICING[MAX_TIER] + (count - MAX_TIER) * PER_ADDITIONAL;
 }
 
 function toggleCourse(card) {

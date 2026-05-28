@@ -173,11 +173,11 @@
                 </p>
 
                 <div class="space-y-4 mb-8">
-                    @foreach ([
-                        ['1 Course',  'K1,750', false],
-                        ['2 Courses', 'K3,000', true],
-                        ['3 Courses', 'K4,750', false],
-                    ] as [$tier, $price, $highlight])
+                    @foreach (collect($pricing['tiers'])->map(fn($p, $n) => [
+                        $n . ' ' . ($n === 1 ? 'Course' : 'Courses'),
+                        'K' . number_format($p),
+                        $n === 2,
+                    ])->values() as [$tier, $price, $highlight])
                     <div class="flex items-center justify-between px-6 py-5 rounded-xl"
                          style="background: {{ $highlight ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.05)' }};
                                 border: 1px solid {{ $highlight ? 'rgba(172,193,55,.5)' : 'rgba(255,255,255,.1)' }};">

@@ -218,7 +218,7 @@
                             
                             <div id="courses-list" class="courses-list">
                                 @foreach($courses as $course)
-                                <label class="course-card @if(old('courses') && in_array($course->id, old('courses'))) selected @endif" data-course-id="{{ $course->id }}" data-course-price="{{ $course->price ?? 1750 }}">
+                                <label class="course-card @if(old('courses') && in_array($course->id, old('courses'))) selected @endif" data-course-id="{{ $course->id }}" data-course-price="{{ $course->price }}">
                                     <input type="checkbox" 
                                            name="courses[]" 
                                            value="{{ $course->id }}" 
@@ -238,7 +238,7 @@
                                         </div>
                                     </div>
                                     <div class="course-price-wrap">
-                                        <div class="course-price">K{{ number_format($course->price ?? 1750) }}</div>
+                                        <div class="course-price">K{{ number_format($course->price) }}</div>
                                         <div class="course-sponsored-badge">
                                             <span class="material-symbols-outlined">volunteer_activism</span>
                                             Sponsored
@@ -288,5 +288,9 @@
 @endsection
 
 @push('scripts')
+<script>
+window.PRICING = @json($pricing['tiers']);
+window.PER_ADDITIONAL = {{ $pricing['per_additional'] }};
+</script>
 @vite(['resources/js/enrollment.js'])
 @endpush

@@ -14,7 +14,8 @@ class CourseController extends AppController
     public function index()
     {
         $courses = Course::active()->get();
+        $pricing = config('pricing');
 
-        return view('public.courses', compact('courses'));
+        return view('public.courses', compact('courses', 'pricing'));
     }
 }

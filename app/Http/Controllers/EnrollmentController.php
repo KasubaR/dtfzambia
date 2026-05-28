@@ -17,7 +17,8 @@ class EnrollmentController extends Controller
     public function create()
     {
         $courses = Course::all();
-        return view('public.enrollment', compact('courses'));
+        $pricing = config('pricing');
+        return view('public.enrollment', compact('courses', 'pricing'));
     }
 
     public function store(Request $request)
@@ -219,12 +220,14 @@ class EnrollmentController extends Controller
 
     private function calculatePrice(int $count): int
     {
-        $pricing = [1 => 1750, 2 => 3000, 3 => 4750];
+        $tiers         = config('pricing.tiers');
+        $perAdditional = config('pricing.per_additional');
+        $maxTier       = max(array_keys($tiers));
 
-        if ($count <= 3) {
-            return $pricing[$count];
+        if ($count <= $maxTier) {
+            return $tiers[$count];
         }
 
-        return $pricing[3] + (($count - 3) * 1750);
+        return $tiers[$maxTier] + (($count - $maxTier) * $perAdditional);
     }
 }

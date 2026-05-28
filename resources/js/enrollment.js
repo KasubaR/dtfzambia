@@ -4,21 +4,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ── Course Selection & Pricing Logic ──────────────────────────
-    const pricingLogic = {
-        1: 1750,
-        2: 3000,
-        3: 4750
-    };
-    
+    const pricingLogic = window.PRICING || { 1: 1750, 2: 3000, 3: 4750 };
+    const perAdditional = window.PER_ADDITIONAL || 1750;
+    const maxTier = Math.max(...Object.keys(pricingLogic).map(Number));
+
     const courseCheckboxes = document.querySelectorAll('.course-checkbox');
     const selectedCountSpan = document.getElementById('selected-count');
     const totalPriceSpan = document.getElementById('total-price');
     const submitBtn = document.getElementById('submit-btn');
-    
+
     function calculatePrice(count) {
         if (count === 0) return 0;
-        if (count <= 3) return pricingLogic[count];
-        return pricingLogic[3] + (count - 3) * 1750;
+        if (count <= maxTier) return pricingLogic[count];
+        return pricingLogic[maxTier] + (count - maxTier) * perAdditional;
     }
     
     function updatePricing() {

@@ -151,7 +151,7 @@
           value="{{ old('price', $course?->price) }}"
           placeholder="0"
           min="0"
-          step="500"
+          step="1"
           required
           style="padding-left:32px">
       </div>
