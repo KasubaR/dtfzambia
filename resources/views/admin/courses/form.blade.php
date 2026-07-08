@@ -133,6 +133,38 @@
       @enderror
     </div>
 
+    {{-- Sponsorship --}}
+    <div class="form-group">
+      <label class="form-label">Funding Status</label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;
+                    padding:12px 14px;border-radius:var(--radius);
+                    border:1.5px solid var(--border);background:var(--surface-2);
+                    transition:border-color .2s"
+             id="sponsored-label">
+        <input type="hidden" name="is_sponsored" value="0">
+        <input type="checkbox"
+               id="is_sponsored"
+               name="is_sponsored"
+               value="1"
+               {{ old('is_sponsored', $course?->is_sponsored) ? 'checked' : '' }}
+               style="display:none">
+        <span id="sponsored-toggle"
+              style="width:38px;height:22px;border-radius:999px;
+                     background:var(--surface-3);border:1.5px solid var(--border);
+                     position:relative;transition:all .2s;flex-shrink:0">
+          <span style="position:absolute;top:2px;left:2px;width:14px;height:14px;
+                       border-radius:50%;background:#fff;transition:transform .2s;
+                       box-shadow:0 1px 3px rgba(0,0,0,.3)"></span>
+        </span>
+        <span style="font-size:.875rem;font-weight:600;color:var(--text)">
+          Fully Sponsored
+          <span style="display:block;font-size:.75rem;font-weight:400;color:var(--text-muted)">
+            Students enrol at no cost — tuition covered by sponsors
+          </span>
+        </span>
+      </label>
+    </div>
+
     {{-- Price --}}
     <div class="form-group">
       <label class="form-label" for="price">
@@ -308,5 +340,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   update(); // initial
+
+  // Sponsorship toggle
+  const sponsoredCb    = document.getElementById('is_sponsored');
+  const sponsoredLabel = document.getElementById('sponsored-label');
+  const toggleTrack    = document.getElementById('sponsored-toggle');
+  const toggleThumb    = toggleTrack?.querySelector('span');
+
+  function applySponsoredState() {
+    const on = sponsoredCb.checked;
+    toggleTrack.style.background    = on ? 'var(--accent)'       : 'var(--surface-3)';
+    toggleTrack.style.borderColor   = on ? 'var(--accent)'       : 'var(--border)';
+    toggleThumb.style.transform     = on ? 'translateX(16px)'    : 'translateX(0)';
+    sponsoredLabel.style.borderColor = on ? 'var(--accent)'      : 'var(--border)';
+  }
+
+  sponsoredLabel.addEventListener('click', () => {
+    sponsoredCb.checked = !sponsoredCb.checked;
+    applySponsoredState();
+  });
+
+  applySponsoredState();
 });
 </script>

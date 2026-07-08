@@ -22,26 +22,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function updatePricing() {
         const selectedCourses = Array.from(courseCheckboxes).filter(cb => cb.checked);
         const count = selectedCourses.length;
-        const total = calculatePrice(count);
-        
+
+        const paidCourses = selectedCourses.filter(cb => cb.closest('.course-card').dataset.sponsored !== 'true');
+        const paidCount = paidCourses.length;
+        const total = calculatePrice(paidCount);
+        const allSponsored = count > 0 && paidCount === 0;
+
         // Update UI
         if (selectedCountSpan) selectedCountSpan.textContent = count;
-        if (totalPriceSpan) totalPriceSpan.textContent = `K${total.toLocaleString()}`;
-        
+        if (totalPriceSpan) totalPriceSpan.textContent = allSponsored ? 'K0' : `K${total.toLocaleString()}`;
+
         // Update course card styles
         courseCheckboxes.forEach(cb => {
             const card = cb.closest('.course-card');
-            if (cb.checked) {
-                card.classList.add('selected');
-            } else {
-                card.classList.remove('selected');
-            }
+            card.classList.toggle('selected', cb.checked);
         });
-        
-        // Toggle sponsored state on pricing summary
+
+        // Toggle sponsored / selection state on pricing summary
         const pricingSummary = document.getElementById('pricing-summary');
         if (pricingSummary) {
             pricingSummary.classList.toggle('has-selection', count > 0);
+            pricingSummary.classList.toggle('all-sponsored', allSponsored);
         }
 
         // Enable/disable submit button based on selection

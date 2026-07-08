@@ -379,14 +379,19 @@
                 <div class="info-card-body">
                     <ul class="courses-list">
                         @foreach($enrollment->courses as $course)
+                        @php $wasSponsored = $course->pivot->price_at_enrollment == 0; @endphp
                         <li>
                             <span>{{ $course->title }}</span>
                             <div class="course-price-col">
-                                <span class="course-price-struck">K{{ number_format($course->price ?? 1750) }}</span>
-                                <span class="sponsored-badge">
-                                    <span class="material-symbols-outlined">volunteer_activism</span>
-                                    Sponsored
-                                </span>
+                                @if($wasSponsored)
+                                    <span class="course-price-struck">K{{ number_format($course->price ?? 1750) }}</span>
+                                    <span class="sponsored-badge">
+                                        <span class="material-symbols-outlined">volunteer_activism</span>
+                                        Sponsored
+                                    </span>
+                                @else
+                                    <span class="summary-value">K{{ number_format($course->pivot->price_at_enrollment) }}</span>
+                                @endif
                             </div>
                         </li>
                         @endforeach
@@ -395,10 +400,16 @@
                     <div class="total-row">
                         <span class="summary-label" style="font-weight: 600;">Total Price</span>
                         <div class="course-price-col">
-                            <span class="summary-value" style="font-size: 1.125rem; text-decoration: line-through; opacity: 0.55; color: var(--color-text-muted);">
-                                K{{ number_format($enrollment->total_price) }}
-                            </span>
-                            <span class="total-free-badge">FREE — Sponsored</span>
+                            @if($enrollment->total_price == 0)
+                                <span class="summary-value" style="font-size: 1.125rem; text-decoration: line-through; opacity: 0.55; color: var(--color-text-muted);">
+                                    K{{ number_format($enrollment->courses->sum(fn($c) => $c->price ?? 1750)) }}
+                                </span>
+                                <span class="total-free-badge">FREE — Sponsored</span>
+                            @else
+                                <span class="summary-value" style="font-size: 1.125rem;">
+                                    K{{ number_format($enrollment->total_price) }}
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>

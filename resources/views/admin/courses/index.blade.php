@@ -166,6 +166,14 @@
                            color:var(--accent)">
                 K{{ number_format($course->price) }}
               </span>
+              @if($course->is_sponsored)
+              <span style="font-size:.65rem;font-weight:700;text-transform:uppercase;
+                           letter-spacing:.04em;color:#16a34a;background:rgba(22,163,74,.1);
+                           border:1px solid rgba(22,163,74,.3);border-radius:999px;
+                           padding:.1rem .45rem;display:inline-block;margin-top:3px">
+                Sponsored
+              </span>
+              @endif
             </td>
             <td>
               <div style="display:flex;align-items:center;gap:6px">

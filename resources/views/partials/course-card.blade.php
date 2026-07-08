@@ -58,7 +58,11 @@
                 </div>
                 <div>
                     <p class="cc-status-label">Current Status</p>
-                    <p class="cc-status-value">FULLY SPONSORED</p>
+                    @if($course->is_sponsored)
+                        <p class="cc-status-value">FULLY SPONSORED</p>
+                    @else
+                        <p class="cc-status-value cc-status-value--paid">FULLY PAID</p>
+                    @endif
                 </div>
             </div>
 

@@ -23,6 +23,7 @@ class Course extends Model
         'is_recommended',
         'is_new',
         'is_active',
+        'is_sponsored',
         'sort_order',
     ];
 
@@ -32,6 +33,7 @@ class Course extends Model
         'is_recommended' => 'boolean',
         'is_new'         => 'boolean',
         'is_active'      => 'boolean',
+        'is_sponsored'   => 'boolean',
     ];
 
     /* ── Relationships ──────────────────────────────────────── */

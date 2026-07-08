@@ -218,10 +218,13 @@
                             
                             <div id="courses-list" class="courses-list">
                                 @foreach($courses as $course)
-                                <label class="course-card @if(old('courses') && in_array($course->id, old('courses'))) selected @endif" data-course-id="{{ $course->id }}" data-course-price="{{ $course->price }}">
-                                    <input type="checkbox" 
-                                           name="courses[]" 
-                                           value="{{ $course->id }}" 
+                                <label class="course-card @if(old('courses') && in_array($course->id, old('courses'))) selected @endif"
+                                       data-course-id="{{ $course->id }}"
+                                       data-course-price="{{ $course->price }}"
+                                       data-sponsored="{{ $course->is_sponsored ? 'true' : 'false' }}">
+                                    <input type="checkbox"
+                                           name="courses[]"
+                                           value="{{ $course->id }}"
                                            class="course-checkbox"
                                            @if(old('courses') && in_array($course->id, old('courses'))) checked @endif>
                                     <div class="course-info">
@@ -238,11 +241,17 @@
                                         </div>
                                     </div>
                                     <div class="course-price-wrap">
-                                        <div class="course-price">K{{ number_format($course->price) }}</div>
-                                        <div class="course-sponsored-badge">
+                                        @if($course->is_sponsored)
+                                            <div class="course-price course-price-free">FREE</div>
+                                        @else
+                                            <div class="course-price">K{{ number_format($course->price) }}</div>
+                                        @endif
+                                        @if($course->is_sponsored)
+                                        <div class="course-sponsored-badge course-sponsored-badge--visible">
                                             <span class="material-symbols-outlined">volunteer_activism</span>
                                             Sponsored
                                         </div>
+                                        @endif
                                     </div>
                                 </label>
                                 @endforeach

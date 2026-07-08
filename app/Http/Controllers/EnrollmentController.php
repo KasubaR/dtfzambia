@@ -74,9 +74,10 @@ class EnrollmentController extends Controller
             });
         })->delete();
 
-        $courseIds   = array_values(array_unique($validated['courses']));
-        $totalPrice  = $this->calculatePrice(count($courseIds));
-        $courses     = Course::whereIn('id', $courseIds)->get()->keyBy('id');
+        $courseIds  = array_values(array_unique($validated['courses']));
+        $courses    = Course::whereIn('id', $courseIds)->get()->keyBy('id');
+        $paidCount  = $courses->filter(fn($c) => !$c->is_sponsored)->count();
+        $totalPrice = $this->calculatePrice($paidCount);
         $code        = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $enrollment = Enrollment::create([
@@ -104,7 +105,7 @@ class EnrollmentController extends Controller
                 continue;
             }
             $attachPayload[$courseId] = [
-                'price_at_enrollment' => $course->price,
+                'price_at_enrollment' => $course->is_sponsored ? 0 : $course->price,
                 'status'              => Enrollment::PIVOT_PENDING,
             ];
         }

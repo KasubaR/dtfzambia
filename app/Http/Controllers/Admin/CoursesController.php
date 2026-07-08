@@ -31,12 +31,15 @@ class CoursesController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string|max:1000',
-            'duration'    => 'required|string|max:100',
-            'mode'        => 'required|in:hybrid,online,physical',
-            'price'       => 'required|numeric|min:0',
+            'title'        => 'required|string|max:255',
+            'description'  => 'nullable|string|max:1000',
+            'duration'     => 'required|string|max:100',
+            'mode'         => 'required|in:hybrid,online,physical',
+            'price'        => 'required|numeric|min:0',
+            'is_sponsored' => 'nullable|boolean',
         ]);
+
+        $data['is_sponsored'] = $request->boolean('is_sponsored');
 
         Course::create(array_merge($data, ['is_active' => true]));
 
@@ -55,12 +58,15 @@ class CoursesController extends Controller
     public function update(Request $request, Course $course)
     {
         $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string|max:1000',
-            'duration'    => 'required|string|max:100',
-            'mode'        => 'required|in:hybrid,online,physical',
-            'price'       => 'required|numeric|min:0',
+            'title'        => 'required|string|max:255',
+            'description'  => 'nullable|string|max:1000',
+            'duration'     => 'required|string|max:100',
+            'mode'         => 'required|in:hybrid,online,physical',
+            'price'        => 'required|numeric|min:0',
+            'is_sponsored' => 'nullable|boolean',
         ]);
+
+        $data['is_sponsored'] = $request->boolean('is_sponsored');
 
         $course->update($data);
 

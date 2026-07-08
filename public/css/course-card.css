@@ -174,6 +174,10 @@
     margin: 0;
 }
 
+.cc-status-value--paid {
+    color: var(--color-text-muted, #6b7280);
+}
+
 /* ── Action row ─────────────────────────────────────────────── */
 .cc-actions {
     display: flex;
