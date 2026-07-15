@@ -148,23 +148,6 @@
 
             {{-- Pricing --}}
             <div data-animate>
-                {{-- Special Offer Banner --}}
-                <div style="
-                    display: flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    background: linear-gradient(135deg, rgba(172,193,55,0.18) 0%, rgba(172,193,55,0.08) 100%);
-                    border: 1px solid rgba(172,193,55,0.55);
-                    border-radius: 0.75rem;
-                    padding: 0.85rem 1.25rem;
-                    margin-bottom: 1.75rem;
-                ">
-                    <span class="material-symbols-outlined" style="color: var(--color-green); font-size: 1.3rem; flex-shrink:0;">campaign</span>
-                    <p style="margin:0; font-size: 0.875rem; line-height: 1.5; color: rgba(255,255,255,0.95);">
-                        <span style="font-weight: 800; color: var(--color-green); letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.75rem;">Special Offer</span><br>
-                        Current cohort is <strong style="color:#fff;">fully sponsored</strong> — Apply Free!
-                    </p>
-                </div>
 
                 <p class="section-eyebrow" style="color: var(--color-green);">Tuition Fees</p>
                 <h2 class="text-4xl font-extrabold font-headline mb-4">Investment in Your Future</h2>
@@ -182,18 +165,8 @@
                          style="background: {{ $highlight ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.05)' }};
                                 border: 1px solid {{ $highlight ? 'rgba(172,193,55,.5)' : 'rgba(255,255,255,.1)' }};">
                         <span class="text-base font-semibold">{{ $tier }}</span>
-                        <span style="display:flex; flex-direction:column; align-items:flex-end; gap:0.2rem;">
-                            <span class="text-2xl font-extrabold font-headline"
-                                  style="text-decoration:line-through; opacity:0.45; color:{{ $highlight ? 'var(--color-green)' : 'white' }};">{{ $price }}</span>
-                            <span style="display:inline-flex; align-items:center; gap:0.2rem;
-                                         font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
-                                         color:var(--color-green); background:rgba(172,193,55,0.15);
-                                         border:1px solid rgba(172,193,55,0.4); border-radius:999px;
-                                         padding:0.1rem 0.55rem 0.1rem 0.3rem;">
-                                <span class="material-symbols-outlined" style="font-size:0.75rem;">volunteer_activism</span>
-                                Sponsored
-                            </span>
-                        </span>
+                        <span class="text-2xl font-extrabold font-headline"
+                              style="color:{{ $highlight ? 'var(--color-green)' : 'white' }};">{{ $price }}</span>
                     </div>
                     @endforeach
                 </div>
@@ -352,7 +325,7 @@
                    style="background: white; color: var(--color-primary);"
                    onmouseover="this.style.background='var(--color-green-light)'; this.style.color='var(--color-green-dark)';"
                    onmouseout="this.style.background='white'; this.style.color='var(--color-primary)';">
-                    Apply Now — It's Free
+                    Apply Now
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
             </div>

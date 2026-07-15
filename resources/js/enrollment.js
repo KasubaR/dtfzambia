@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update UI
         if (selectedCountSpan) selectedCountSpan.textContent = count;
-        if (totalPriceSpan) totalPriceSpan.textContent = allSponsored ? 'K0' : `K${total.toLocaleString()}`;
+        if (totalPriceSpan) totalPriceSpan.textContent = `K${total.toLocaleString()}`;
 
         // Update course card styles
         courseCheckboxes.forEach(cb => {
@@ -38,11 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
             card.classList.toggle('selected', cb.checked);
         });
 
-        // Toggle sponsored / selection state on pricing summary
+        // Toggle selection state on pricing summary
         const pricingSummary = document.getElementById('pricing-summary');
         if (pricingSummary) {
             pricingSummary.classList.toggle('has-selection', count > 0);
-            pricingSummary.classList.toggle('all-sponsored', allSponsored);
         }
 
         // Enable/disable submit button based on selection
@@ -54,20 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to checkboxes
     courseCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updatePricing);
-    });
-    
-    // Make entire course card clickable
-    document.querySelectorAll('.course-card').forEach(card => {
-        card.addEventListener('click', function(e) {
-            // Don't trigger if clicking directly on checkbox
-            if (e.target.type !== 'checkbox') {
-                const checkbox = this.querySelector('.course-checkbox');
-                if (checkbox) {
-                    checkbox.checked = !checkbox.checked;
-                    updatePricing();
-                }
-            }
-        });
     });
     
     // Initial pricing update
