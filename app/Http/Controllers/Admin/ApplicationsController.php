@@ -13,17 +13,20 @@ use Illuminate\Validation\ValidationException;
 
 class ApplicationsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $sort = $request->input('sort', 'desc') === 'asc' ? 'asc' : 'desc';
+
         $applications = Enrollment::with('courses')
             ->whereHas(
                 'courses',
                 fn ($q) => $q->where('course_enrollment.status', Enrollment::PIVOT_PENDING)
             )
-            ->latest()
-            ->paginate(15);
+            ->orderBy('created_at', $sort)
+            ->paginate(15)
+            ->withQueryString();
 
-        return view('admin.applications.index', compact('applications'));
+        return view('admin.applications.index', compact('applications', 'sort'));
     }
 
     public function show(Enrollment $enrollment)

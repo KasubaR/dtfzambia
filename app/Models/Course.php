@@ -16,6 +16,7 @@ class Course extends Model
         'duration',
         'mode',
         'price',
+        'image',
         'icon',
         'modules',
         'seats_remaining',

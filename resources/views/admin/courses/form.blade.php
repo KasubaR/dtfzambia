@@ -54,6 +54,68 @@
       </div>
     </div>
 
+    {{-- Course Image --}}
+    <div class="form-group">
+      <label class="form-label">Course Image</label>
+
+      {{-- Current image preview (edit mode only) --}}
+      @if($editing && $course->image)
+        <div id="currentImageWrap" style="margin-bottom:10px">
+          <img src="{{ asset('storage/' . $course->image) }}"
+               alt="Current image"
+               style="width:100%;max-height:160px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)">
+          <label style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;
+                        font-size:.78rem;color:var(--danger);cursor:pointer">
+            <input type="checkbox" name="remove_image" value="1" id="removeImage"
+                   style="accent-color:var(--danger)">
+            Remove current image
+          </label>
+        </div>
+      @endif
+
+      {{-- Drop zone --}}
+      <div id="imageDropZone"
+           style="border:2px dashed var(--border);border-radius:var(--radius);
+                  padding:28px 16px;text-align:center;cursor:pointer;transition:border-color .2s;
+                  background:var(--surface-2)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+             style="width:32px;height:32px;color:var(--text-faint);margin-bottom:8px">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <p style="font-size:.82rem;color:var(--text-muted);margin:0">
+          Click to upload or drag &amp; drop<br>
+          <span style="font-size:.75rem;color:var(--text-faint)">JPG, PNG, WEBP — max 2 MB</span>
+        </p>
+        <input type="file" name="image" id="imageInput" accept="image/*"
+               style="display:none">
+      </div>
+
+      {{-- New image preview --}}
+      <div id="newImagePreview" style="display:none;margin-top:10px;position:relative">
+        <img id="newImageThumb"
+             style="width:100%;max-height:160px;object-fit:cover;border-radius:var(--radius);
+                    border:1px solid var(--border)">
+        <button type="button" id="clearImage"
+                style="position:absolute;top:6px;right:6px;width:26px;height:26px;
+                       border-radius:50%;background:rgba(0,0,0,.6);border:none;cursor:pointer;
+                       display:grid;place-items:center;color:#fff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               style="width:13px;height:13px">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      @error('image')
+        <span style="color:var(--danger);font-size:.75rem;margin-top:5px;display:block">
+          {{ $message }}
+        </span>
+      @enderror
+    </div>
+
     {{-- Duration --}}
     <div class="form-group">
       <label class="form-label" for="duration">
@@ -361,5 +423,56 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   applySponsoredState();
+
+  // Image upload
+  const dropZone      = document.getElementById('imageDropZone');
+  const imageInput    = document.getElementById('imageInput');
+  const newPreview    = document.getElementById('newImagePreview');
+  const newThumb      = document.getElementById('newImageThumb');
+  const clearBtn      = document.getElementById('clearImage');
+  const removeChk     = document.getElementById('removeImage');
+  const currentWrap   = document.getElementById('currentImageWrap');
+
+  dropZone?.addEventListener('click', () => imageInput.click());
+
+  dropZone?.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--accent)';
+  });
+  dropZone?.addEventListener('dragleave', () => {
+    dropZone.style.borderColor = 'var(--border)';
+  });
+  dropZone?.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--border)';
+    const file = e.dataTransfer.files[0];
+    if (file) showPreview(file);
+  });
+
+  imageInput?.addEventListener('change', () => {
+    if (imageInput.files[0]) showPreview(imageInput.files[0]);
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    imageInput.value = '';
+    newPreview.style.display = 'none';
+    newThumb.src = '';
+  });
+
+  function showPreview(file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      newThumb.src = e.target.result;
+      newPreview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+    // Uncheck "remove image" if a new file is chosen
+    if (removeChk) removeChk.checked = false;
+  }
+
+  // Hide current image preview when "remove" is checked
+  removeChk?.addEventListener('change', () => {
+    if (currentWrap) currentWrap.style.opacity = removeChk.checked ? '.4' : '1';
+  });
 });
 </script>

@@ -61,7 +61,20 @@
           <th>NRC</th>
           <th>Course(s)</th>
           <th>Status</th>
-          <th>Date</th>
+          <th>
+            <a href="{{ request()->fullUrlWithQuery(['sort' => $sort === 'desc' ? 'asc' : 'desc']) }}"
+               style="display:inline-flex;align-items:center;gap:4px;color:inherit;text-decoration:none;white-space:nowrap">
+              Date
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                   style="width:11px;height:11px;opacity:.6">
+                @if($sort === 'desc')
+                  <polyline points="6 9 12 15 18 9"/>
+                @else
+                  <polyline points="6 15 12 9 18 15"/>
+                @endif
+              </svg>
+            </a>
+          </th>
           <th></th>
         </tr>
       </thead>

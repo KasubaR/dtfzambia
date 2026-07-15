@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CoursesController extends Controller
 {
@@ -37,9 +38,14 @@ class CoursesController extends Controller
             'mode'         => 'required|in:hybrid,online,physical',
             'price'        => 'required|numeric|min:0',
             'is_sponsored' => 'nullable|boolean',
+            'image'        => 'nullable|image|max:2048',
         ]);
 
         $data['is_sponsored'] = $request->boolean('is_sponsored');
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('course-images', 'public');
+        }
 
         Course::create(array_merge($data, ['is_active' => true]));
 
@@ -64,9 +70,22 @@ class CoursesController extends Controller
             'mode'         => 'required|in:hybrid,online,physical',
             'price'        => 'required|numeric|min:0',
             'is_sponsored' => 'nullable|boolean',
+            'image'        => 'nullable|image|max:2048',
         ]);
 
         $data['is_sponsored'] = $request->boolean('is_sponsored');
+
+        if ($request->hasFile('image')) {
+            if ($course->image) {
+                Storage::disk('public')->delete($course->image);
+            }
+            $data['image'] = $request->file('image')->store('course-images', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($course->image) {
+                Storage::disk('public')->delete($course->image);
+            }
+            $data['image'] = null;
+        }
 
         $course->update($data);
 

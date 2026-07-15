@@ -443,7 +443,7 @@
                    style="background: white; color: var(--color-primary);"
                    onmouseover="this.style.background='var(--color-green-light)'; this.style.color='var(--color-green-dark)';"
                    onmouseout="this.style.background='white'; this.style.color='var(--color-primary)';">
-                    Apply Now — It's Free
+                    Apply Now
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
             </div>

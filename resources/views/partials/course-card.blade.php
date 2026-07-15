@@ -54,16 +54,14 @@
             <div class="cc-price-row">
                 <div>
                     <p class="cc-price-label">Fee</p>
-                    <p class="cc-price-amount">K{{ number_format($course->price ?? 1750) }}</p>
+                    <p class="cc-price-amount {{ $course->is_sponsored ? 'cc-price-amount--sponsored' : '' }}">K{{ number_format($course->price ?? 1750) }}</p>
                 </div>
+                @if($course->is_sponsored)
                 <div>
                     <p class="cc-status-label">Current Status</p>
-                    @if($course->is_sponsored)
-                        <p class="cc-status-value">FULLY SPONSORED</p>
-                    @else
-                        <p class="cc-status-value cc-status-value--paid">FULLY PAID</p>
-                    @endif
+                    <p class="cc-status-value">FULLY SPONSORED</p>
                 </div>
+                @endif
             </div>
 
             <div class="cc-actions">

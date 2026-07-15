@@ -23,17 +23,11 @@ class EnrollmentController extends Controller
 
     public function store(Request $request)
     {
-        // Enrollments older than 2 months with a terminal status (rejected/waitlisted)
-        // are excluded from uniqueness checks so applicants can re-apply.
-        $twoMonthsAgo = now()->subMonths(2);
-
+        // Rejected/waitlisted enrollments are excluded from uniqueness checks
+        // so applicants can re-apply at any time.
         $activeUnique = fn (string $col) => Rule::unique('enrollments', $col)
-            ->where(function ($query) use ($twoMonthsAgo) {
-                $query->where('status', '!=', 'pending_verification')
-                      ->where(function ($q) use ($twoMonthsAgo) {
-                          $q->whereNotIn('status', ['rejected', 'waitlisted'])
-                            ->orWhere('created_at', '>=', $twoMonthsAgo);
-                      });
+            ->where(function ($query) {
+                $query->whereNotIn('status', ['rejected', 'waitlisted', 'pending_verification']);
             });
 
         $validated = $request->validate([

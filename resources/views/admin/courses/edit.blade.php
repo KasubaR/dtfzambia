@@ -80,7 +80,8 @@
   <div class="panel-body">
     <form method="POST"
           action="{{ route('admin.courses.update', $course) }}"
-          id="courseForm">
+          id="courseForm"
+          enctype="multipart/form-data">
       @csrf
       @method('PUT')
 

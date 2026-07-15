@@ -37,7 +37,7 @@
   </div>
 
   <div class="panel-body">
-    <form method="POST" action="{{ route('admin.courses.store') }}" id="courseForm">
+    <form method="POST" action="{{ route('admin.courses.store') }}" id="courseForm" enctype="multipart/form-data">
       @csrf
 
       @include('admin.courses.form')

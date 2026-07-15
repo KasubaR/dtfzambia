@@ -160,9 +160,12 @@
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--color-primary);
+    margin: 0;
+}
+
+.cc-price-amount--sponsored {
     opacity: 0.45;
     text-decoration: line-through;
-    margin: 0;
 }
 
 .cc-status-value {
