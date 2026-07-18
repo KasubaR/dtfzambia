@@ -46,6 +46,8 @@ class EnrollmentController extends Controller
 
         // Remove stale pending_verification records and expired rejected/waitlisted records
         // so the new enrollment can be attached cleanly.
+        $twoMonthsAgo = now()->subMonths(2);
+
         Enrollment::where(function ($q) use ($validated, $twoMonthsAgo) {
             $q->where(function ($inner) use ($validated) {
                 // Always clear unverified stale records
