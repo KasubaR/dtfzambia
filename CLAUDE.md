@@ -47,8 +47,7 @@ npm run build
 - **`/admin/enrollments`** — Enrollments where all course pivots are decided
 
 ### Pricing Logic (Kwacha)
-Calculated in `EnrollmentController::calculatePrice()`:
-- 1 course = K1,750 | 2 = K3,000 | 3 = K4,750 | 4+ = K4,750 + (N−3 × K1,750)
+`total_price` is the sum of each selected non-sponsored course's `price` field (set per-course in the admin panel). Computed server-side in `EnrollmentController::store()` — sponsored courses contribute K0.
 
 ### Key Models
 - **`Enrollment`** — Central model. Has `rollupStatus()` and `allCoursesDecided()` methods. Constants: `PIVOT_PENDING`, `PIVOT_ACCEPTED`, `PIVOT_REJECTED`.

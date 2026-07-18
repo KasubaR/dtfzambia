@@ -4,28 +4,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ── Course Selection & Pricing Logic ──────────────────────────
-    const pricingLogic = window.PRICING || { 1: 1750, 2: 3000, 3: 4750 };
-    const perAdditional = window.PER_ADDITIONAL || 1750;
-    const maxTier = Math.max(...Object.keys(pricingLogic).map(Number));
-
     const courseCheckboxes = document.querySelectorAll('.course-checkbox');
     const selectedCountSpan = document.getElementById('selected-count');
     const totalPriceSpan = document.getElementById('total-price');
     const submitBtn = document.getElementById('submit-btn');
 
-    function calculatePrice(count) {
-        if (count === 0) return 0;
-        if (count <= maxTier) return pricingLogic[count];
-        return pricingLogic[maxTier] + (count - maxTier) * perAdditional;
-    }
-    
     function updatePricing() {
         const selectedCourses = Array.from(courseCheckboxes).filter(cb => cb.checked);
         const count = selectedCourses.length;
 
         const paidCourses = selectedCourses.filter(cb => cb.closest('.course-card').dataset.sponsored !== 'true');
         const paidCount = paidCourses.length;
-        const total = calculatePrice(paidCount);
+        const total = paidCourses.reduce((sum, cb) => sum + (Number(cb.closest('.course-card').dataset.coursePrice) || 0), 0);
         const allSponsored = count > 0 && paidCount === 0;
 
         // Update UI

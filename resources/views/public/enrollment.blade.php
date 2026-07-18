@@ -152,7 +152,7 @@
                                 <span class="material-symbols-outlined">school</span>
                                 Select Courses
                             </div>
-                            <p class="enroll-card__sub">Choose at least 1 course. Bundle for better pricing.</p>
+                            <p class="enroll-card__sub">Choose at least 1 course.</p>
 
                             <div class="courses-list" id="courses-list">
                                 @foreach($courses as $course)
@@ -206,7 +206,7 @@
                                 <span>Total</span>
                                 <span id="total-price" class="pricing-amount">K0</span>
                             </div>
-                            <p class="pricing-note">1 course = K1,750 · 2 = K3,000 · 3+ = K4,750</p>
+                            <p class="pricing-note">Total is the sum of the courses you select.</p>
                         </div>
 
                         <button type="submit" class="btn-submit" id="submit-btn">
@@ -225,9 +225,5 @@
 @endsection
 
 @push('scripts')
-<script>
-window.PRICING = @json($pricing['tiers']);
-window.PER_ADDITIONAL = {{ $pricing['per_additional'] }};
-</script>
 @vite(['resources/js/enrollment.js'])
 @endpush

@@ -17,7 +17,7 @@
             Phone: {{ $enrollment->phone }}<br>
             Location: {{ $enrollment->location }}<br>
             Courses selected: {{ $enrollment->courses->count() }}<br>
-            Total (tiered pricing): <strong style="color:#191b22;">K{{ number_format($enrollment->total_price, 0) }}</strong>
+            Total: <strong style="color:#191b22;">K{{ number_format($enrollment->total_price, 0) }}</strong>
         </span>
     </p>
 

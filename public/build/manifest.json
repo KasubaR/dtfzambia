@@ -1,0 +1,56 @@
+{
+  "resources/css/about.css": {
+    "file": "assets/about-BTYtqOP7.css",
+    "src": "resources/css/about.css",
+    "isEntry": true,
+    "name": "about",
+    "names": [
+      "about.css"
+    ]
+  },
+  "resources/css/admin.css": {
+    "file": "assets/admin-BOzFDZ__.css",
+    "src": "resources/css/admin.css",
+    "isEntry": true,
+    "name": "admin",
+    "names": [
+      "admin.css"
+    ]
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Du3BXNd3.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/enrollment.css": {
+    "file": "assets/enrollment-BwQEqKiy.css",
+    "src": "resources/css/enrollment.css",
+    "isEntry": true,
+    "name": "enrollment",
+    "names": [
+      "enrollment.css"
+    ]
+  },
+  "resources/js/admin.js": {
+    "file": "assets/admin-BVpYFD_Q.js",
+    "name": "admin",
+    "src": "resources/js/admin.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DojOs3Tg.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/enrollment.js": {
+    "file": "assets/enrollment-BTJhjeHW.js",
+    "name": "enrollment",
+    "src": "resources/js/enrollment.js",
+    "isEntry": true
+  }
+}

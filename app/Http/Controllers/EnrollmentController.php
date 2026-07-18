@@ -17,8 +17,7 @@ class EnrollmentController extends Controller
     public function create()
     {
         $courses = Course::all();
-        $pricing = config('pricing');
-        return view('public.enrollment', compact('courses', 'pricing'));
+        return view('public.enrollment', compact('courses'));
     }
 
     public function store(Request $request)
@@ -70,8 +69,7 @@ class EnrollmentController extends Controller
 
         $courseIds  = array_values(array_unique($validated['courses']));
         $courses    = Course::whereIn('id', $courseIds)->get()->keyBy('id');
-        $paidCount  = $courses->filter(fn($c) => !$c->is_sponsored)->count();
-        $totalPrice = $this->calculatePrice($paidCount);
+        $totalPrice = $courses->filter(fn($c) => !$c->is_sponsored)->sum('price');
         $code        = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
         $enrollment = Enrollment::create([
@@ -211,18 +209,5 @@ class EnrollmentController extends Controller
     {
         $enrollment = Enrollment::with('courses')->findOrFail($id);
         return view('public.enrollment.success', compact('enrollment'));
-    }
-
-    private function calculatePrice(int $count): int
-    {
-        $tiers         = config('pricing.tiers');
-        $perAdditional = config('pricing.per_additional');
-        $maxTier       = max(array_keys($tiers));
-
-        if ($count <= $maxTier) {
-            return $tiers[$count];
-        }
-
-        return $tiers[$maxTier] + (($count - $maxTier) * $perAdditional);
     }
 }

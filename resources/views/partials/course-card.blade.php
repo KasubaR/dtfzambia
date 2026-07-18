@@ -4,6 +4,7 @@
 <div class="cc-card"
      data-course-id="{{ $course->id }}"
      data-price="{{ $course->price }}"
+     data-sponsored="{{ $course->is_sponsored ? 'true' : 'false' }}"
      data-mode="{{ $course->mode !== null ? strtolower($course->mode) : '' }}"
      data-duration="{{ $course->duration !== null ? strtolower(str_replace(' ', '-', $course->duration)) : '' }}">
 

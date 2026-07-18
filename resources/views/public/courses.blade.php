@@ -486,7 +486,7 @@
                 ],
                 [
                     'q' => 'Can I enrol in more than one course?',
-                    'a' => 'Absolutely. You can select up to 3 courses in a single cohort. Bundle pricing applies for 2 or more courses, giving you greater value.',
+                    'a' => 'Absolutely. You can select as many courses as you like in a single cohort — your total is simply the sum of each course\'s fee.',
                 ],
             ] as $i => $faq)
             <div class="faq-item rounded-xl overflow-hidden"
@@ -609,15 +609,16 @@
 @push('scripts')
 <script>
 /* ── Course selection state ─────────────────────────────────── */
-const PRICING = @json($pricing['tiers']);
-const PER_ADDITIONAL = {{ $pricing['per_additional'] }};
-const MAX_TIER = Math.max(...Object.keys(PRICING).map(Number));
 let selectedIds = new Set();
 
-function getPrice(count) {
-    if (count <= 0) return 0;
-    if (count <= MAX_TIER) return PRICING[count] ?? PRICING[MAX_TIER];
-    return PRICING[MAX_TIER] + (count - MAX_TIER) * PER_ADDITIONAL;
+function getPrice() {
+    let total = 0;
+    document.querySelectorAll('.cc-card').forEach(card => {
+        if (selectedIds.has(card.dataset.courseId) && card.dataset.sponsored !== 'true') {
+            total += Number(card.dataset.price) || 0;
+        }
+    });
+    return total;
 }
 
 function toggleCourse(card) {
@@ -640,7 +641,7 @@ function clearSelection() {
 
 function updateUI() {
     const count = selectedIds.size;
-    const total = getPrice(count);
+    const total = getPrice();
 
     // Summary bar above grid
     const summary = document.getElementById('selection-summary');
